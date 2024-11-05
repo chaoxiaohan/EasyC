@@ -3,7 +3,7 @@
 
 <div align="center">
 
-English | [简体中文](README_zh.md)
+English | [简体中文](https://github.com/ophiraShen/EasyC/blob/main/READEME_CN.MD)
 
 </div>
 

@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[English](README.md) | 简体中文
+[English](https://github.com/ophiraShen/EasyC/blob/main/README.md) | 简体中文
 
 </div>
 
