@@ -1,4 +1,11 @@
+
 # CStart 🚀
+
+<div align="center">
+
+English | [简体中文](README_zh.md)
+
+</div>
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)

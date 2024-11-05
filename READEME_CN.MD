@@ -1,5 +1,11 @@
 # CStart 🚀
 
+<div align="center">
+
+[English](README.md) | 简体中文
+
+</div>
+
 [![许可证](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Docker](https://img.shields.io/badge/docker-required-blue.svg)](https://www.docker.com/)
