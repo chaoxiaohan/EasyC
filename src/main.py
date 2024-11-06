@@ -1,9 +1,19 @@
+import os
+import sys
+
+# 配置工作目录
+sys.path.append(os.path.dirname(os.path.abspath("main")))
+
 import gradio as gr
 import requests
-import os
 import json
 from dotenv import load_dotenv
 from datetime import datetime
+from examples.code_examples import CODE_EXAMPLES
+import sqlite3
+import pandas as pd
+
+
 
 # 加载环境变量
 load_dotenv()
@@ -13,40 +23,37 @@ JDOODLE_CLIENT_ID = os.getenv('JDOODLE_CLIENT_ID')
 JDOODLE_CLIENT_SECRET = os.getenv('JDOODLE_CLIENT_SECRET')
 JDOODLE_API_URL = "https://api.jdoodle.com/v1/execute"
 
-# 代码示例库
-CODE_EXAMPLES = {
-    "Hello World": """#include <stdio.h>
+# 初始化数据库
+def init_db():
+    conn = sqlite3.connect('code_history.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS history
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  code TEXT NOT NULL,
+                  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                  result TEXT)''')
+    conn.commit()
+    conn.close()
 
-int main() {
-    printf("Hello, World!\\n");
-    return 0;
-}""",
-    "求和计算": """#include <stdio.h>
+init_db()
 
-int main() {
-    int a, b;
-    printf("请输入两个数字：\\n");
-    scanf("%d %d", &a, &b);
-    printf("和为：%d\\n", a + b);
-    return 0;
-}""",
-    "九九乘法表": """#include <stdio.h>
+def save_to_history(code, result):
+    """保存代码到历史记录"""
+    conn = sqlite3.connect('code_history.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO history (code, result) VALUES (?, ?)", (code, result))
+    conn.commit()
+    conn.close()
 
-int main() {
-    for(int i = 1; i <= 9; i++) {
-        for(int j = 1; j <= i; j++) {
-            printf("%d×%d=%-3d ", j, i, i*j);
-        }
-        printf("\\n");
-    }
-    return 0;
-}"""
-}
+def get_history():
+    """获取历史记录"""
+    conn = sqlite3.connect('code_history.db')
+    history = pd.read_sql_query("SELECT * FROM history ORDER BY timestamp DESC LIMIT 10", conn)
+    conn.close()
+    return history
 
 def compile_and_run(code, input_data=""):
-    """
-    使用 JDoodle API 编译和运行 C 代码
-    """
+    """使用 JDoodle API 编译和运行 C 代码"""
     payload = {
         "clientId": JDOODLE_CLIENT_ID,
         "clientSecret": JDOODLE_CLIENT_SECRET,
@@ -62,61 +69,78 @@ def compile_and_run(code, input_data=""):
         
         if response.status_code == 200:
             output = result.get('output', '')
-            if "error" in output.lower():
-                return f"❌ 编译或运行错误:\n{output}"
-            return f"✅ 程序输出:\n{output}"
+            result_text = f"✅ 程序输出:\n{output}" if "error" not in output.lower() else f"❌ 编译或运行错误:\n{output}"
+            # 保存到历史记录
+            save_to_history(code, result_text)
+            return result_text
         else:
-            return f"❌ API错误: {result.get('error', '未知错误')}"
+            error_text = f"❌ API错误: {result.get('error', '未知错误')}"
+            save_to_history(code, error_text)
+            return error_text
     except Exception as e:
-        return f"❌ 系统错误: {str(e)}"
+        error_text = f"❌ 系统错误: {str(e)}"
+        save_to_history(code, error_text)
+        return error_text
 
-def load_example(example_name):
+def load_example(category, example_name):
     """加载示例代码"""
-    return CODE_EXAMPLES.get(example_name, "")
+    if category and example_name:
+        return CODE_EXAMPLES[category][example_name]["code"], CODE_EXAMPLES[category][example_name]["description"]
+    return "", ""
 
-def save_code(code):
+def save_code_to_file(code, file_name):
     """保存代码到文件"""
     try:
-        # 创建保存目录
         os.makedirs("saved_code", exist_ok=True)
-        
-        # 生成文件名
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"saved_code/code_{timestamp}.c"
-        
-        # 保存代码
-        with open(filename, "w", encoding="utf-8") as f:
+        file_path = os.path.join("saved_code", file_name)
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(code)
-        
-        return f"✅ 代码已保存到: {filename}"
+        return f"✅ 代码已保存到: {file_path}"
     except Exception as e:
         return f"❌ 保存失败: {str(e)}"
+
+def load_code_from_file(file_obj):
+    """从文件加载代码"""
+    try:
+        content = file_obj.decode('utf-8')
+        return content
+    except Exception as e:
+        return f"❌ 文件加载失败: {str(e)}"
 
 # 创建 Gradio 界面
 with gr.Blocks(title="EasyC - C语言在线编程学习平台") as demo:
     gr.Markdown("""
-    # EasyC - C语言在线编程平台 v0.2
+    # EasyC - C语言在线编程平台 v0.3
     
-    ### 功能说明：
-    1. 选择示例代码或编写自己的代码
-    2. 如果程序需要输入，请在输入框中提供
-    3. 点击运行查看结果
-    4. 可以保存代码到本地
+    ### 新功能：
+    1. 代码历史记录
+    2. 文件上传下载
+    3. 更多示例代码
+    4. 分类示例浏览
     """)
     
     with gr.Row():
         with gr.Column(scale=2):
             # 示例选择
-            example_dropdown = gr.Dropdown(
-                choices=list(CODE_EXAMPLES.keys()),
-                label="选择示例代码"
+            with gr.Row():
+                category_dropdown = gr.Dropdown(
+                    choices=list(CODE_EXAMPLES.keys()),
+                    label="选择类别"
+                )
+                example_dropdown = gr.Dropdown(
+                    label="选择示例"
+                )
+            
+            example_description = gr.Textbox(
+                label="示例说明",
+                interactive=False
             )
             
             # 代码编辑器
             code_input = gr.Code(
                 label="C 代码编辑器",
                 language="c",
-                value=CODE_EXAMPLES["Hello World"]
+                value=CODE_EXAMPLES["基础示例"]["Hello World"]["code"]
             )
             
             # 程序输入
@@ -129,30 +153,62 @@ with gr.Blocks(title="EasyC - C语言在线编程学习平台") as demo:
             with gr.Row():
                 run_button = gr.Button("运行代码", variant="primary")
                 save_button = gr.Button("保存代码")
+                
+            # 文件上传下载
+            with gr.Row():
+                file_upload = gr.File(label="上传代码文件")
+                file_download = gr.Textbox(label="保存文件名", placeholder="example.c")
         
         with gr.Column(scale=1):
             output = gr.Textbox(
                 label="程序输出",
                 lines=10
             )
+            
+            # 历史记录
+            history_df = gr.DataFrame(
+                label="代码历史记录",
+                headers=["ID", "代码", "时间", "结果"],
+                interactive=False
+            )
     
     # 事件处理
+    def update_examples(category):
+        if category:
+            return gr.Dropdown(choices=list(CODE_EXAMPLES[category].keys()))
+        return gr.Dropdown(choices=[])
+    
+    category_dropdown.change(
+        fn=update_examples,
+        inputs=[category_dropdown],
+        outputs=[example_dropdown]
+    )
+    
     example_dropdown.change(
         fn=load_example,
-        inputs=[example_dropdown],
-        outputs=[code_input]
+        inputs=[category_dropdown, example_dropdown],
+        outputs=[code_input, example_description]
     )
     
     run_button.click(
         fn=compile_and_run,
         inputs=[code_input, program_input],
         outputs=[output]
+    ).then(
+        fn=get_history,
+        outputs=[history_df]
     )
     
     save_button.click(
-        fn=save_code,
-        inputs=[code_input],
+        fn=save_code_to_file,
+        inputs=[code_input, file_download],
         outputs=[output]
+    )
+    
+    file_upload.change(
+        fn=load_code_from_file,
+        inputs=[file_upload],
+        outputs=[code_input]
     )
 
 if __name__ == "__main__":
