@@ -1,5 +1,5 @@
 
-# CStart 🚀
+# EasyC 🚀
 
 <div align="center">
 
