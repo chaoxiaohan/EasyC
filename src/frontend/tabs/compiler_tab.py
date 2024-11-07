@@ -32,7 +32,7 @@ def create_compiler_tab(compiler_service: CompilerService):
             # 右侧输出区域
             with gr.Column(scale=1):
                 output = gr.Textbox(
-                    label="程序输出",
+                    label="运行结果",
                     lines=5
                 )
                 

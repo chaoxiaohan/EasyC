@@ -28,6 +28,15 @@ def main():
     
     # 创建 Gradio 界面
     with gr.Blocks(title="EasyC - C语言在线编程学习平台") as demo:
+        gr.Markdown("""
+    # EasyC - C语言在线编程平台 v0.2
+    
+    ### 功能说明：
+    1. 选择示例代码或编写自己的代码
+    2. 如果程序需要输入，请在输入框中提供
+    3. 点击运行查看结果
+    4. 可以保存代码到本地
+    """)
         with gr.Tabs():
             create_compiler_tab(compiler_service)
             create_exercises_tab(compiler_service)

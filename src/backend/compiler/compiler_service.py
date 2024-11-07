@@ -23,7 +23,7 @@ class CompilerService:
                 "clientSecret": self.client_secret,
                 "script": code,
                 "language": "c",
-                "versionIndex": "0",
+                "versionIndex": "5",
                 "stdin": input_data or ""
             }
             
@@ -32,13 +32,24 @@ class CompilerService:
             compile_result = response.json()
             logger.debug(f"Compilation result: {compile_result}")
 
+            if compile_result['statusCode'] == 200:
+                output = compile_result.get("output", "")
+                if not compile_result.get("isExecutionSuccess"):
+                    output = f"❌ 运行错误:\n{output}"
+                elif not compile_result.get("isCompiled"):
+                    output = f"❌ 编译错误:\n{output}"
+                else:
+                    output = f"✅ 运行成功！\n程序输出:\n{output}"
+            else:
+                output = f"❌ API错误:\n{compile_result.get('error', '未知错误')}"
+
             # 获取 AI 反馈
-            ai_feedback = await self.feedback_service.get_feedback(code, compile_result)
+            ai_feedback = await self.feedback_service.get_feedback(code, output)
             
             # 返回完整结果
             return {
-                "success": not bool(compile_result.get("error")),
-                "output": compile_result.get("output", ""),
+                "success": not bool(compile_result.get("compilationStatus")),
+                "output": output,
                 "error": compile_result.get("error", ""),
                 "execution_time": float(compile_result.get("cpuTime")) if compile_result.get("cpuTime") is not None else 0.0,
                 "ai_feedback": ai_feedback

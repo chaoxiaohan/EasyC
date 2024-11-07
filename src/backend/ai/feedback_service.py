@@ -17,14 +17,11 @@ class AIFeedbackService:
 {code}
 
 ### 编译结果
-{compile_result.get('output', '')}
-
-### 错误信息
-{compile_result.get('error', '')}
+{compile_result}
 
 请分析以上代码和结果，给出：
 1. 代码运行情况说明
-2. 错误原因（如果有）
+2. 错误原因（如果有,没有可以不写）
 3. 改进建议
 """
         try:
