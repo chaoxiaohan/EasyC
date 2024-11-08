@@ -9,18 +9,22 @@ from langchain_core.prompts import ChatPromptTemplate
 
 
 class AIFeedbackEngine:
-    def __init__(self, model: str="deepseek-chat"):
+    def __init__(self, model: str="deepseek-chat", api_key: str=None):
         with open("prompts/result_feedback_prompt.txt", "r") as f:
             result_feedback_prompt = f.read().strip()
-        system_message = ChatPromptTemplate(
+        self.system_message = ChatPromptTemplate(
             [
                 ("system", result_feedback_prompt),
                 ("user", "{messages}")
             ]
         )
-        api_key = os.getenv("DEEPSEEK_API_KEY")
-        self.model = system_message | ChatOpenAI(model="deepseek-chat", openai_api_key=api_key, openai_api_base='https://api.deepseek.com',)
-    
+        # api_key = os.getenv("DEEPSEEK_API_KEY")
+        self.api_key = api_key
+        self.model = self.system_message | ChatOpenAI(model="deepseek-chat", openai_api_key=self.api_key, openai_api_base='https://api.deepseek.com',)
+
+    def update_api_key(self, api_key: str):
+        self.api_key = api_key
+        self.model = self.system_message | ChatOpenAI(model="deepseek-chat", openai_api_key=self.api_key, openai_api_base='https://api.deepseek.com',)
     
     def chat(self, message):
         logger.debug(f"Chatting with message: {message}")
