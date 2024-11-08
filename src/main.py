@@ -3,11 +3,15 @@
 import os
 import sys
 
+# print("===" * 30)
+# print(os.getcwd())
 
-# 切换到脚本所在目录
-script_dir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_dir)
+# # 切换到脚本所在目录
+# script_dir = os.path.dirname(os.path.abspath(__file__))
+# os.chdir(script_dir)
 
+# print("===" * 30)
+# print(os.getcwd())
 
 
 from utils.logger import logger
