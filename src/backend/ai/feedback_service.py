@@ -6,8 +6,8 @@ from .feedback_engine import AIFeedbackEngine
 
 class AIFeedbackService:
     def __init__(self, api_key: str=None):
-        self.api_key = api_key
-        self.engine = AIFeedbackEngine(api_key=self.api_key)
+        # self.api_key = api_key
+        self.engine = AIFeedbackEngine(api_key=api_key)
         logger.info(f"AIFeedbackService initialized")
 
     def update_api_key(self, api_key: str):

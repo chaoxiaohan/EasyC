@@ -1,11 +1,10 @@
-# src/frontend/tabs/compiler_tab.py
+# frontend/tabs/compiler_tab.py
 
 import gradio as gr
-from backend.compiler.compiler_service import CompilerService
+from backend.compiler.local_compiler_service import LocalCompilerService
 
 
-
-def create_compiler_tab(compiler_service: CompilerService):
+def create_compiler_tab(compiler_service: LocalCompilerService):
     with gr.Tab("代码编译"):
         with gr.Row():
             # 状态提示组件（初始隐藏）
@@ -15,28 +14,24 @@ def create_compiler_tab(compiler_service: CompilerService):
             )
 
             with gr.Column() as settings_modal:
-                # with gr.Column():  
-                #     settings_button = gr.Button("⚙️ 设置", scale=0, variant="secondary")
                 
-                # # # 添加设置对话框
-                # with gr.Column() as settings_modal:
                 settings_status = gr.Markdown(
                     value="请先配置 API 信息",
                     visible=True
                 )
-                # # 状态提示组件
-                # settings_status = gr.Markdown(visible=False)
+                # # # 状态提示组件
+                # # settings_status = gr.Markdown(visible=False)
 
-                client_id_input = gr.Textbox(
-                    label="Client ID",
-                    placeholder="请输入 JDoodle Client ID",
-                    type="text",
-                )
-                client_secret_input = gr.Textbox(
-                    label="Client Secret",
-                    placeholder="请输入 JDoodle Client Secret",
-                    type="password",
-                )
+                # client_id_input = gr.Textbox(
+                #     label="Client ID",
+                #     placeholder="请输入 JDoodle Client ID",
+                #     type="text",
+                # )
+                # client_secret_input = gr.Textbox(
+                #     label="Client Secret",
+                #     placeholder="请输入 JDoodle Client Secret",
+                #     type="password",
+                # )
                 api_key_input = gr.Textbox(
                     label="API Key",
                     placeholder="请输入 DeepSeek API Key",
@@ -45,8 +40,8 @@ def create_compiler_tab(compiler_service: CompilerService):
                 save_settings_button = gr.Button("保存设置", variant="primary")
 
             # 添加设置保存函数
-            def save_settings(client_id, client_secret, api_key):
-                compiler_service.update_credentials(client_id, client_secret, api_key)
+            def save_settings(api_key):
+                compiler_service.update_credentials(api_key)
                 return [
                     gr.update(visible=False),
                     gr.update(visible=True, value="✅ 配置已成功保存！您现在可以开始编程练习了。")
@@ -54,7 +49,7 @@ def create_compiler_tab(compiler_service: CompilerService):
             
             save_settings_button.click(
                 fn=save_settings,
-                inputs=[client_id_input, client_secret_input, api_key_input],
+                inputs=[api_key_input],
                 outputs=[settings_modal, success_message]
             )
             

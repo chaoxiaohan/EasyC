@@ -1,7 +1,7 @@
 # src/tabs/exercises_tab.py
 
 import gradio as gr
-from backend.compiler.compiler_service import CompilerService
+from EasyC.backend.compiler.jdoodle_compiler_service import CompilerService
 
 
 def create_exercises_tab(compiler_service: CompilerService): 

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  easyc:
+    build: .
+    ports:
+      - "7860:7860"
+    volumes:
+      - /tmp/compile:/tmp/compile
+    security_opt:
+      - seccomp:unconfined  # 允许编译和执行程序
