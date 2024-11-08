@@ -1,31 +1,28 @@
 # src/backend/ai/feedback_service.py
 
+import json
 from utils.logger import logger
 from .feedback_engine import AIFeedbackEngine
 
 class AIFeedbackService:
-    def __init__(self):
-        self.engine = AIFeedbackEngine()
+    def __init__(self, api_key: str=None):
+        self.api_key = api_key
+        self.engine = AIFeedbackEngine(api_key=self.api_key)
         logger.info(f"AIFeedbackService initialized")
+
+    def update_api_key(self, api_key: str):
+        self.api_key = api_key
+        self.engine.update_api_key(api_key)
     
     async def get_feedback(self, code: str, compile_result: dict) -> str:
         """根据代码和编译结果提供 AI 反馈"""
         logger.debug(f"Getting feedback for code: {code} and compile result: {compile_result}")
-
-        message = f"""
-## 代码分析
-{code}
-
-### 编译结果
-{compile_result}
-
-请分析以上代码和结果，给出：
-1. 代码运行情况说明
-2. 错误原因（如果有,没有可以不写）
-3. 改进建议
-"""
+        message = {
+            "code": code,
+            "compile_result": compile_result
+        }
         try:
-            feedback = self.engine.chat(message)
+            feedback = self.engine.chat(json.dumps(message))
             logger.info("AI feedback generated successfully")
             return feedback
         except Exception as e:

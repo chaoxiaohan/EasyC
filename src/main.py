@@ -2,8 +2,13 @@
 
 import os
 import sys
-# 添加项目根目录到 sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath("main"))))
+
+
+# 切换到脚本所在目录
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+
+
 
 from utils.logger import logger
 from dotenv import load_dotenv
@@ -19,27 +24,27 @@ load_dotenv()
 def main():
     logger.info("Starting EasyC application")
 
-    # 初始化编译器服务
     compiler_service = CompilerService(
-        client_id=os.getenv('JDOODLE_CLIENT_ID'),
-        client_secret=os.getenv('JDOODLE_CLIENT_SECRET'),
-        api_url="https://api.jdoodle.com/v1/execute"
+        client_id="",
+        client_secret="",
+        api_url="https://api.jdoodle.com/v1/execute",
+        api_key=""
     )
     
     # 创建 Gradio 界面
     with gr.Blocks(title="EasyC - C语言在线编程学习平台") as demo:
         gr.Markdown("""
-    # EasyC - C语言在线编程平台 v0.2
+    # EasyC - C语言在线编程平台
     
     ### 功能说明：
-    1. 选择示例代码或编写自己的代码
+    1. 支持C语言编程
     2. 如果程序需要输入，请在输入框中提供
     3. 点击运行查看结果
-    4. 可以保存代码到本地
+    4. AI 会对结果进行分析，并给出改进建议
     """)
         with gr.Tabs():
             create_compiler_tab(compiler_service)
-            create_exercises_tab(compiler_service)
+            # create_exercises_tab(compiler_service)
     
     logger.info("Launching EasyC application")
     demo.launch()
