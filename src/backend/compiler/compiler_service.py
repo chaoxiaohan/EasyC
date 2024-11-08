@@ -1,125 +1,74 @@
-# src/frontend/tabs/compiler_tab.py
+# src/backend/compiler/compiler_service.py
 
-import gradio as gr
-from backend.compiler.compiler_service import CompilerService
+from utils.logger import logger
+import requests
+from typing import Dict, Optional
+from backend.ai.feedback_service import AIFeedbackService
 
+class CompilerService:
+    def __init__(self, client_id: str, client_secret: str, api_url: str, api_key: str=None):
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.api_url = api_url
+        self.feedback_service = AIFeedbackService(api_key=api_key)
+        logger.info(f"CompilerService initialized with client_id: {client_id}, client_secret: {client_secret}, api_url: {api_url}")
+    
+    def update_credentials(self, client_id: str, client_secret: str, api_key: str):
+        """更新 API 凭证"""
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.feedback_service.update_api_key(api_key)
 
+    async def compile_and_run(self, code: str, input_data: Optional[str] = None) -> Dict:
+        try:
+            logger.info(f"Compiling and running code: {code}")
 
-def create_compiler_tab(compiler_service: CompilerService):
-    with gr.Tab("代码编译"):
-        with gr.Row():
-            # 状态提示组件（初始隐藏）
-            success_message = gr.Markdown(
-                value="",
-                visible=False
-            )
-
-            with gr.Column() as settings_modal:
-                # with gr.Column():  
-                #     settings_button = gr.Button("⚙️ 设置", scale=0, variant="secondary")
-                
-                # # # 添加设置对话框
-                # with gr.Column() as settings_modal:
-                settings_status = gr.Markdown(
-                    value="请先配置 API 信息",
-                    visible=True
-                )
-                # # 状态提示组件
-                # settings_status = gr.Markdown(visible=False)
-
-                client_id_input = gr.Textbox(
-                    label="Client ID",
-                    placeholder="请输入 JDoodle Client ID",
-                    type="text",
-                )
-                client_secret_input = gr.Textbox(
-                    label="Client Secret",
-                    placeholder="请输入 JDoodle Client Secret",
-                    type="password",
-                )
-                api_key_input = gr.Textbox(
-                    label="API Key",
-                    placeholder="请输入 DeepSeek API Key",
-                    type="password",
-                )
-                save_settings_button = gr.Button("保存设置", variant="primary")
-
-            # 添加设置保存函数
-            def save_settings(client_id, client_secret, api_key):
-                compiler_service.update_credentials(client_id, client_secret, api_key)
-                return [
-                    gr.update(visible=False),
-                    gr.update(visible=True, value="✅ 配置已成功保存！您现在可以开始编程练习了。")
-                ]
+            # 构建请求体
+            payload = {
+                "clientId": self.client_id,
+                "clientSecret": self.client_secret,
+                "script": code,
+                "language": "c",
+                "versionIndex": "5",
+                "stdin": input_data or ""
+            }
             
-            save_settings_button.click(
-                fn=save_settings,
-                inputs=[client_id_input, client_secret_input, api_key_input],
-                outputs=[settings_modal, success_message]
-            )
-            
+            # 发送请求
+            response = requests.post(self.api_url, json=payload)
+            compile_result = response.json()
+            logger.debug(f"Compilation result: {compile_result}")
 
-        with gr.Row():
-            # 左侧编辑区域
-            with gr.Column(scale=2):
-                code_input = gr.Code(
-                    label="C 代码编辑器",
-                    language="c"
-                )
-                
-                program_input = gr.Textbox(
-                    label="程序输入（如果需要）",
-                    placeholder="多个输入值请用空格分隔",
-                    lines=2
-                )
-                
-                with gr.Row():
-                    run_button = gr.Button("运行代码", variant="primary")
-                    # save_button = gr.Button("保存代码")
-                    
-                # with gr.Row():
-                #     file_upload = gr.File(label="上传代码文件")
-                #     file_download = gr.Textbox(label="保存文件名", placeholder="example.c")
-            
-            # 右侧输出区域
-            with gr.Column(scale=1):
-                output = gr.Textbox(
-                    label="运行结果",
-                    lines=5
-                )
-                
-                # 新增 AI 反馈区域
-                ai_feedback = gr.Markdown(
-                    label="AI 反馈",
-                    value="*等待代码运行完成后进行分析...*",
-                    visible=True
-                )
-                
-                # history_df = gr.DataFrame(
-                #     label="代码历史记录",
-                #     headers=["ID", "代码", "时间", "结果"],
-                #     interactive=False
-                # )
-            
-            async def run_code(code, input_data):
-                result = await compiler_service.compile_and_run(code, input_data)
-                return [result["output"], result, "*AI 分析中...*"]
-            
-            async def get_ai_feedback(code, output):
-                analysis = await compiler_service.get_ai_feedback(code, output)
-                return analysis
-                     
+            if compile_result['statusCode'] == 200:
+                output = compile_result.get("output", "")
+                if not compile_result.get("isExecutionSuccess"):
+                    output = f"❌ 运行错误:\n{output}"
+                elif not compile_result.get("isCompiled"):
+                    output = f"❌ 编译错误:\n{output}"
+                else:
+                    output = f"✅ 运行成功！程序输出:\n{output}"
+            else:
+                output = f"❌ API错误:\n{compile_result.get('error', '未知错误')}"
 
-            run_button.click(
-                fn=run_code,
-                inputs=[code_input, program_input],
-                outputs=[output, gr.State(), ai_feedback]
-            ).then(
-                fn=get_ai_feedback,
-                inputs=[code_input, gr.State()],
-                outputs=[ai_feedback]
-            )
+            # 获取 AI 反馈
+            ai_feedback = await self.feedback_service.get_feedback(code, output)
+            
+            # 返回完整结果
+            return {
+                "success": not bool(compile_result.get("compilationStatus")),
+                "output": output,
+                "error": compile_result.get("error", ""),
+                "execution_time": float(compile_result.get("cpuTime")) if compile_result.get("cpuTime") is not None else 0.0,
+            }
 
+        except Exception as e:
+            logger.exception("Error in compile_and_run")
+            return {
+                "success": False,
+                "output": "",
+                "error": str(e),
+                "execution_time": 0,
+            }
         
-
-        
+    async def get_ai_feedback(self, code: str, output: dict) -> str:
+        ai_feedback = await self.feedback_service.get_feedback(code, output)
+        return ai_feedback
