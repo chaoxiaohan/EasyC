@@ -81,14 +81,6 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
                 # with gr.Row():
                 #     file_upload = gr.File(label="上传代码文件")
                 #     file_download = gr.Textbox(label="保存文件名", placeholder="example.c")
-
-                def clean_code():
-                    return gr.update(value="")
-                
-                clear_button.click(
-                    fn=clean_code,
-                    outputs=[code_input]
-                )
             
             # 右侧输出区域
             with gr.Column(scale=1):
@@ -102,7 +94,8 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
                 ai_feedback = gr.Markdown(
                     label="AI 反馈",
                     value="*等待代码运行完成后进行分析...*",
-                    visible=True
+                    visible=True,
+                    elem_classes=["feedback-text"]
                 )
                 with gr.Row():
                     copy_button = gr.Button("📋 复制反馈", size="sm")
@@ -115,11 +108,6 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
                 # )
 
                 def copy_feedback(markdown_text):
-                    # 移除 markdown 格式符号，获取纯文本
-                    clean_text = markdown_text.replace('*', '').replace('#', '').strip()
-                    # 复制到系统剪贴板
-                    pyperclip.copy(clean_text)
-                    # 显示成功提示
                     return gr.update(visible=True)
                 
                 def hide_status():
@@ -149,10 +137,47 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
                     fn=copy_feedback,
                     inputs=[ai_feedback],
                     outputs=[copy_status],
+                    js="""
+                    async (markdown) => {
+                        // 获取 Markdown 内容，移除 Markdown 语法
+                        let text = markdown.replace(/\*/g, '').trim();
+                        
+                        try {
+                            await navigator.clipboard.writeText(text);
+                            return true;
+                        } catch (err) {
+                            // 降级方案：为了兼容性，使用传统的方法
+                            const textarea = document.createElement('textarea');
+                            textarea.value = text;
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            try {
+                                document.execCommand('copy');
+                                document.body.removeChild(textarea);
+                                return true;
+                            } catch (err) {
+                                document.body.removeChild(textarea);
+                                console.error('Failed to copy text: ', err);
+                                return false;
+                            }
+                        }
+                    }
+                    """
                 ).success(
                 fn=hide_status,
                 outputs=[copy_status]
             )
-        
 
-        
+            def clean_code():
+                    return [
+                        gr.update(value=""),  # 清空代码输入
+                        gr.update(value=""),  # 清空程序输入
+                        gr.update(value=""),  # 清空运行结果
+                        gr.update(value="*等待代码运行完成后进行分析...*")  # 清空 AI 反馈
+                    ]
+                
+            clear_button.click(
+                fn=clean_code,
+                outputs=[code_input, program_input, output, ai_feedback]
+            )
+    

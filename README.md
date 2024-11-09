@@ -13,34 +13,14 @@ English | [简体中文](https://github.com/ophiraShen/EasyC/blob/main/READEME_C
 
 An intuitive, AI-powered platform designed to make learning C programming accessible and engaging for complete beginners.
 
-## 🎯 Features
 
-### Current Features (v1.0)
-- 🖥️ Browser-based C code editor with syntax highlighting
-- 🔄 Real-time code compilation and execution
-- 🐳 Secure Docker-based code execution environment
-- ❌ Clear error reporting and feedback
-
-### Upcoming Features
-- 🤖 AI-powered code feedback and suggestions
-- 📚 Interactive programming exercises
-- 📊 Progress tracking and analytics
-- 👥 Peer learning and code sharing
-- 🎓 Customizable curriculum for educators
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.10+
-- Docker
-- Git
 
 ### Installation
 
 1. Clone the repository
 ```bash
 git clone https://github.com/ophiraShen/EasyC.git
-cd cstart
+cd EasyC
 ```
 
 2. Install dependencies
@@ -50,7 +30,7 @@ pip install -r requirements.txt
 
 3. Start the application
 ```bash
-python main.py
+python src/main.py
 ```
 
 
@@ -64,29 +44,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 Development Roadmap
 
-### Version 1.0
-- Basic online compiler
-- Simple code execution
-- Error reporting
-
-### Version 1.1-1.2
-- Enhanced error reporting
-- Basic exercise module
-- AI teacher feedback system
-
-### Version 2.0-2.1
-- Advanced debugging capabilities
-- Test case automation
-- Progress tracking
-- Student analytics
-
-### Version 3.0+
-- Advanced AI tutoring
-- Collaboration tools
-- Community features
-- Custom exercise creation
 
 ## 📄 License
 

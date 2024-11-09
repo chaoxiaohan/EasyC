@@ -35,12 +35,11 @@ def main():
     """)
         with gr.Tabs():
             create_compiler_tab(compiler_service)
-            # create_exercises_tab(compiler_service)
     
     logger.info("Launching EasyC application")
     demo.launch(
-        # server_name="0.0.0.0",
-        # server_port=7860
+        server_name="0.0.0.0",
+        server_port=7860
     )
 
 if __name__ == "__main__":
