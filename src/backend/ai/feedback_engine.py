@@ -3,14 +3,15 @@
 import os
 import json
 from utils.logger import logger
-
+from utils.path_utils import ProjectPaths
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
 
 class AIFeedbackEngine:
     def __init__(self, model: str="deepseek-chat", api_key: str=None):
-        with open("prompts/result_feedback_prompt.txt", "r") as f:
+        prompt_path = ProjectPaths.get_project_path("prompts", "result_feedback_prompt.txt")
+        with open(prompt_path, "r") as f:
             result_feedback_prompt = f.read().strip()
         self.system_message = ChatPromptTemplate(
             [
