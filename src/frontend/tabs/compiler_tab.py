@@ -1,5 +1,6 @@
 # frontend/tabs/compiler_tab.py
-
+import time
+import pyperclip
 import gradio as gr
 from backend.compiler.local_compiler_service import LocalCompilerService
 
@@ -59,28 +60,42 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
             with gr.Column(scale=2):
                 code_input = gr.Code(
                     label="C 代码编辑器",
-                    language="c"
+                    language="c",
+                    lines=10,
+                    show_label=True,
+                    wrap_lines=True,
+                    container=True,
                 )
                 
                 program_input = gr.Textbox(
                     label="程序输入（如果需要）",
-                    placeholder="多个输入值请用空格分隔",
+                    placeholder="多个输入值请用空格分隔, 例如: 1 2 3",
                     lines=2
                 )
                 
                 with gr.Row():
                     run_button = gr.Button("运行代码", variant="primary")
+                    clear_button = gr.Button("清空代码", variant="secondary")
                     # save_button = gr.Button("保存代码")
-                    
+                
                 # with gr.Row():
                 #     file_upload = gr.File(label="上传代码文件")
                 #     file_download = gr.Textbox(label="保存文件名", placeholder="example.c")
+
+                def clean_code():
+                    return gr.update(value="")
+                
+                clear_button.click(
+                    fn=clean_code,
+                    outputs=[code_input]
+                )
             
             # 右侧输出区域
             with gr.Column(scale=1):
                 output = gr.Textbox(
                     label="运行结果",
-                    lines=5
+                    lines=5,
+                    show_copy_button=True
                 )
                 
                 # 新增 AI 反馈区域
@@ -89,32 +104,55 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
                     value="*等待代码运行完成后进行分析...*",
                     visible=True
                 )
-                
+                with gr.Row():
+                    copy_button = gr.Button("📋 复制反馈", size="sm")
+                    copy_status = gr.Markdown(value="✅ 已复制到剪贴板！", visible=False)  # 添加状态提示组件
+
                 # history_df = gr.DataFrame(
                 #     label="代码历史记录",
                 #     headers=["ID", "代码", "时间", "结果"],
                 #     interactive=False
                 # )
-            
-            async def run_code(code, input_data):
-                result = await compiler_service.compile_and_run(code, input_data)
-                return [result["output"], result, "*AI 分析中...*"]
-            
-            async def get_ai_feedback(code, output):
-                analysis = await compiler_service.get_ai_feedback(code, output)
-                return analysis
-                     
 
-            run_button.click(
-                fn=run_code,
-                inputs=[code_input, program_input],
-                outputs=[output, gr.State(), ai_feedback]
-            ).then(
-                fn=get_ai_feedback,
-                inputs=[code_input, gr.State()],
-                outputs=[ai_feedback]
+                def copy_feedback(markdown_text):
+                    # 移除 markdown 格式符号，获取纯文本
+                    clean_text = markdown_text.replace('*', '').replace('#', '').strip()
+                    # 复制到系统剪贴板
+                    pyperclip.copy(clean_text)
+                    # 显示成功提示
+                    return gr.update(visible=True)
+                
+                def hide_status():
+                    time.sleep(3)
+                    return gr.update(visible=False)
+                
+                async def run_code(code, input_data):
+                    result = await compiler_service.compile_and_run(code, input_data)
+                    return [result["output"], result, "*AI 分析中...*", gr.update(visible=True)]
+                
+                async def get_ai_feedback(code, output):
+                    analysis = await compiler_service.get_ai_feedback(code, output)
+                    return analysis
+                        
+
+                run_button.click(
+                    fn=run_code,
+                    inputs=[code_input, program_input],
+                    outputs=[output, gr.State(), ai_feedback]
+                ).then(
+                    fn=get_ai_feedback,
+                    inputs=[code_input, gr.State()],
+                    outputs=[ai_feedback]
+                )
+
+                copy_button.click(
+                    fn=copy_feedback,
+                    inputs=[ai_feedback],
+                    outputs=[copy_status],
+                ).success(
+                fn=hide_status,
+                outputs=[copy_status]
             )
-
         
 
         

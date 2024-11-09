@@ -2,12 +2,10 @@
 
 import os
 import sys
+from pathlib import Path
 
-# 切换到脚本所在目录
-script_dir = os.path.dirname(os.path.abspath(__file__))
-project_dir = os.path.dirname(script_dir)
-print(project_dir)
-os.chdir(project_dir)
+# 定义项目根目录
+ROOT_DIR = Path(__file__).resolve().parent.parent
 
 from utils.logger import logger
 from dotenv import load_dotenv
@@ -25,15 +23,15 @@ def main():
     compiler_service = LocalCompilerService()
     
     # 创建 Gradio 界面
-    with gr.Blocks(title="EasyC - C语言在线编程学习平台") as demo:
+    with gr.Blocks(title="EasyC - C语言在线编程平台") as demo:
         gr.Markdown("""
-    # EasyC - C语言在线编程平台
+    # EasyC - 实时 AI 评测，助你快速提升编程能力
     
     ### 功能说明：
     1. 支持C语言编程
     2. 如果程序需要输入，请在输入框中提供
     3. 点击运行查看结果
-    4. AI 会对结果进行分析，并给出改进建议
+    4. 配置 api_key 后，AI 会自动对结果进行分析，并给出改进建议
     """)
         with gr.Tabs():
             create_compiler_tab(compiler_service)
