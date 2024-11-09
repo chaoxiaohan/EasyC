@@ -25,7 +25,7 @@ def main():
     # 创建 Gradio 界面
     with gr.Blocks(title="EasyC - C语言在线编程平台") as demo:
         gr.Markdown("""
-    # EasyC - 实时 AI 评测，助你快速提升编程能力
+    # EasyC 🚀 - 实时 AI 评测，助你快速提升编程能力
     
     ### 功能说明：
     1. 支持C语言编程
@@ -38,8 +38,8 @@ def main():
     
     logger.info("Launching EasyC application")
     demo.launch(
-        server_name="0.0.0.0",
-        server_port=7860
+        # server_name="0.0.0.0",
+        # server_port=7860
     )
 
 if __name__ == "__main__":

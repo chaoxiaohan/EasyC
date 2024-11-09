@@ -7,54 +7,56 @@ from backend.compiler.local_compiler_service import LocalCompilerService
 
 def create_compiler_tab(compiler_service: LocalCompilerService):
     with gr.Tab("代码编译"):
-        with gr.Row():
+        # 顶部工具栏和设置区域
+        with gr.Column():
+            # 设置面板
+            settings_button = gr.Button(
+                value="⚙️ 配置 API 信息",
+                visible=True,
+                size="sm",
+                scale=1
+            )
+
+            api_key_input = gr.Textbox(
+                label="API Key",
+                placeholder="请输入 DeepSeek API Key",
+                type="password",
+            )
+
+            save_settings_button = gr.Button("保存设置", variant="primary", size="sm", scale=1)
+
             # 状态提示组件（初始隐藏）
             success_message = gr.Markdown(
                 value="",
                 visible=False
             )
 
-            with gr.Column() as settings_modal:
-                
-                settings_status = gr.Markdown(
-                    value="请先配置 API 信息",
-                    visible=True
-                )
-                # # # 状态提示组件
-                # # settings_status = gr.Markdown(visible=False)
-
-                # client_id_input = gr.Textbox(
-                #     label="Client ID",
-                #     placeholder="请输入 JDoodle Client ID",
-                #     type="text",
-                # )
-                # client_secret_input = gr.Textbox(
-                #     label="Client Secret",
-                #     placeholder="请输入 JDoodle Client Secret",
-                #     type="password",
-                # )
-                api_key_input = gr.Textbox(
-                    label="API Key",
-                    placeholder="请输入 DeepSeek API Key",
-                    type="password",
-                )
-                save_settings_button = gr.Button("保存设置", variant="primary")
-
+            # 添加设置显示函数
+            def show_settings():
+                return [
+                    gr.update(visible=True),  # 显示 API Key 输入框
+                    gr.update(visible=True),  # 显示保存按钮
+                    gr.update(visible=False, value="")
+                ]
             # 添加设置保存函数
             def save_settings(api_key):
                 compiler_service.update_credentials(api_key)
                 return [
-                    gr.update(visible=False),
-                    gr.update(visible=True, value="✅ 配置已成功保存！您现在可以开始编程练习了。")
+                    gr.update(visible=False),  # 隐藏 API Key 输入框
+                    gr.update(visible=False),  # 隐藏保存按钮
+                    gr.update(visible=True, value="✅ 配置已成功保存！您现在可以开始编程练习了。")  # 显示成功提示
                 ]
             
             save_settings_button.click(
                 fn=save_settings,
                 inputs=[api_key_input],
-                outputs=[settings_modal, success_message]
+                outputs=[api_key_input, save_settings_button, success_message]
             )
-            
-
+            settings_button.click(
+                fn=show_settings,
+                outputs=[api_key_input, save_settings_button, success_message]
+            )
+        # 代码编辑区域
         with gr.Row():
             # 左侧编辑区域
             with gr.Column(scale=2):
