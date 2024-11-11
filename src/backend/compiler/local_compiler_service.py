@@ -10,7 +10,7 @@ from backend.ai.feedback_service import AIFeedbackService
 class LocalCompilerService:
     def __init__(self, api_key: str = None):
         self.compile_dir = "/tmp/compile"
-        self.feedback_service = None
+        self.feedback_service = AIFeedbackService(api_key=api_key)
         
         # 创建编译目录
         os.makedirs(self.compile_dir, exist_ok=True)
@@ -101,7 +101,7 @@ class LocalCompilerService:
         """更新凭证，主要是用于设置 API Key"""
         try:
             # 重新初始化 feedback service
-            self.feedback_service = AIFeedbackService(api_key=api_key)
+            self.feedback_service.update_api_key(api_key)
             logger.info("Credentials updated successfully")
             return True
         except Exception as e:
@@ -111,7 +111,7 @@ class LocalCompilerService:
 
     async def get_ai_feedback(self, code: str, output: dict) -> str:
         """获取 AI 反馈"""
-        if not self.feedback_service:
+        if not self.feedback_service.api_key:
             return "请先在设置中配置 API Key 以启用 AI 反馈功能"
         elif not self.feedback_service.api_key:
             return "请先在设置中配置 API Key 以启用 AI 反馈功能"
