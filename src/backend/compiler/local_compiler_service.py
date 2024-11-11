@@ -113,6 +113,9 @@ class LocalCompilerService:
         """获取 AI 反馈"""
         if not self.feedback_service:
             return "请先在设置中配置 API Key 以启用 AI 反馈功能"
+        elif not self.feedback_service.api_key:
+            return "请先在设置中配置 API Key 以启用 AI 反馈功能"
+        
         try:
             return await self.feedback_service.get_feedback(code, output)
         except Exception as e:
