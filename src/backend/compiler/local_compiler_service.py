@@ -37,7 +37,7 @@ class LocalCompilerService:
             # 编译代码
             output_file = os.path.join(self.compile_dir, file_id)
             compile_result = subprocess.run(
-                ["gcc", source_file, "-o", output_file],
+                ["gcc", "-Wall", "-Werror", source_file, "-o", output_file],
                 capture_output=True,
                 text=True
             )
