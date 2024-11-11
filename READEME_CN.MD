@@ -19,7 +19,6 @@
 1. 克隆仓库
 ```bash
 git clone https://github.com/ophiraShen/EasyC.git
-cd EasyC
 ```
 
 2. 安装依赖

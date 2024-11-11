@@ -20,7 +20,6 @@ An intuitive, AI-powered platform designed to make learning C programming access
 1. Clone the repository
 ```bash
 git clone https://github.com/ophiraShen/EasyC.git
-cd EasyC
 ```
 
 2. Install dependencies
