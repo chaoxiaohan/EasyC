@@ -8,7 +8,6 @@ from backend.compiler.local_compiler_service import LocalCompilerService
 
 def create_compiler_tab(compiler_service: LocalCompilerService):
     with gr.Tab("代码编译"):
-        # 添加 CSS 类名到相应组件
         # 顶部工具栏和设置区域
         with gr.Column():
             # 设置面板

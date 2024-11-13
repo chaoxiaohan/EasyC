@@ -4,7 +4,7 @@ import os
 import subprocess
 import uuid
 from typing import Dict, Optional
-from utils.logger import logger
+from utils.logger import LOG
 from backend.ai.feedback_service import AIFeedbackService
 
 class LocalCompilerService:
@@ -14,14 +14,14 @@ class LocalCompilerService:
         
         # 创建编译目录
         os.makedirs(self.compile_dir, exist_ok=True)
-        logger.info(f"LocalCompilerService initialized with compile_dir: {self.compile_dir}")
+        LOG.info(f"LocalCompilerService initialized with compile_dir: {self.compile_dir}")
 
     async def compile_and_run(self, code: str, input_data: Optional[str] = None) -> Dict:
         """编译并运行代码"""
         source_file = None
         output_file = None
         try:
-            logger.info(f"Compiling and running code: {code}")
+            LOG.info(f"Compiling and running code: {code}")
             
             # 确保编译目录存在
             os.makedirs(self.compile_dir, exist_ok=True)
@@ -82,7 +82,7 @@ class LocalCompilerService:
                 }
                 
         except Exception as e:
-            logger.exception("Error in compile_and_run")
+            LOG.exception("Error in compile_and_run")
             return {
                 "success": False,
                 "output": f"❌ 运行错误: {str(e)}",
@@ -102,10 +102,10 @@ class LocalCompilerService:
         try:
             # 重新初始化 feedback service
             self.feedback_service = AIFeedbackService(api_key=api_key)
-            logger.info("Credentials updated successfully")
+            LOG.info("Credentials updated successfully")
             return True
         except Exception as e:
-            logger.error(f"Failed to update credentials: {e}")
+            LOG.error(f"Failed to update credentials: {e}")
             return False
 
 
@@ -119,5 +119,5 @@ class LocalCompilerService:
         try:
             return await self.feedback_service.get_feedback(code, output)
         except Exception as e:
-            logger.error(f"Error getting AI feedback: {e}")
+            LOG.error(f"Error getting AI feedback: {e}")
             return f"获取 AI 反馈时出错: {str(e)}"

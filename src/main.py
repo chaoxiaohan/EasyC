@@ -7,12 +7,14 @@ from pathlib import Path
 # 定义项目根目录
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-from utils.logger import logger
+from utils.logger import LOG
 from dotenv import load_dotenv
 import gradio as gr
 
 from backend.compiler.local_compiler_service import LocalCompilerService
+from backend.exercise.exercise_service import ExerciseService
 from frontend.tabs.compiler_tab import create_compiler_tab
+from frontend.tabs.exercise_tab.exercise_tab import ExerciseTab
 
 # 加载环境变量
 load_dotenv()
@@ -33,21 +35,24 @@ with gr.Blocks(title="EasyC - C语言在线编程平台", css=css_content) as de
     3. 点击运行查看结果
     4. 配置 api_key 后，点击 `AI 分析` 按钮，AI 会自动对结果进行分析，并给出改进建议
     """)
-    with gr.Tabs():
-        compiler_service = LocalCompilerService()
-        create_compiler_tab(compiler_service)
+    compiler_service = LocalCompilerService()
 
+    exercise_service = ExerciseService(compiler_service)
+    ExerciseTab(exercise_service).create()
+
+    create_compiler_tab(compiler_service)
+    
 def main():
-    logger.info("Starting EasyC application")
-    logger.info("Launching EasyC application")
+    LOG.info("Starting EasyC application")
+    LOG.info("Launching EasyC application")
     demo.launch(
-        server_name="0.0.0.0",
-        server_port=7860
+        # server_name="0.0.0.0",
+        # server_port=7860
     )
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        logger.exception(f"Application crashed: {e}")
+        LOG.exception(f"Application crashed: {e}")
         raise
