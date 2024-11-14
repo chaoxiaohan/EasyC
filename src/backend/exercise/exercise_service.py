@@ -30,10 +30,6 @@ class ExerciseService:
 
         # 使用第一个测试用例运行代码
         test_case = exercise.test_cases[0]
-        result = await self.compiler_service.run(code, test_case.input)
+        result = await self.compiler_service.compile_and_run(code, test_case.input)
         
-        return {
-            "status": "success",
-            "output": result.output if result.success else result.error,
-            "error": None if result.success else result.error
-        }
+        return result

@@ -15,7 +15,7 @@
               "expected_output": "Hello, World!\n"
             }
           ],
-          "solution_template": "#include <stdio.h>\n\nint main() {\n    // 在这里编写代码\n    return 0;\n}"
+          "solution_template": "#include <stdio.h>\n\nint main() {\n\t// 在这里编写代码\n\treturn 0;\n}"
         },
         {
           "id": "ex1_2",

@@ -5,6 +5,8 @@ import gradio as gr
 from typing import Optional
 from backend.exercise.exercise_service import ExerciseService
 
+
+
 class ExerciseTab:
     def __init__(self, exercise_service: ExerciseService):
         self.exercise_service = exercise_service
@@ -13,30 +15,25 @@ class ExerciseTab:
     def _handle_chapter_select(self, chapter_id: str):
         """处理章节选择"""
         exercises = self.exercise_service.get_exercises_by_chapter(chapter_id)
-
-        # 返回 Dataset 需要的格式
-        return gr.Dataset(samples=[[ex.id, ex.title, ex.difficulty] for ex in exercises])
+        return [[exercise.id, exercise.title, exercise.difficulty] for exercise in exercises]
 
     def _handle_exercise_select(self, evt: gr.SelectData):
         """处理习题选择"""
         # evt.value 包含选中行的数据
-        exercise_id = evt.value[0]  
+        exercise_id = evt.value 
         exercise = self.exercise_service.get_exercise_by_id(exercise_id)
-        self.current_exercise = exercise.id
+        self.current_exercise = exercise_id
         
-        return (
-            f"### {exercise.title}\n\n{exercise.description}",  # exercise_description
-            exercise.solution_template,  # code_editor
-        )
-
+        return f"### {exercise.title}\n\n{exercise.description}"
+    
     async def _handle_run_code(self, code: str):
         """处理代码运行"""
         if not self.current_exercise:
             return "请先选择一个习题"
             
         result = await self.exercise_service.run_code(self.current_exercise, code)
-        return result["output"] if "output" in result else result["error"]
-
+        return result["output"]
+    
     def create(self):
         """创建习题练习标签页"""
         with gr.Tab("习题练习"):
@@ -44,23 +41,17 @@ class ExerciseTab:
                 # 左侧：章节和习题列表
                 with gr.Column(scale=1):
                     chapter_dropdown = gr.Dropdown(
-                        # choices=[(c["id"], f"第{c['id'].split('chapter')[1]}章 ({c['exercise_count']}题)") 
-                        #         for c in self.exercise_service.get_chapters()],
                         choices=[c["id"] for c in self.exercise_service.get_chapters()],
+                        interactive=True,
+                        value="chapter1",
                         label="选择章节",
                     )
                     
-                    # 初始化空的 Dataset
-                    exercise_list = gr.Dataset(
-                        components=[
-                            gr.Textbox(visible=False, interactive=False),
-                            gr.Textbox(visible=False, interactive=False),
-                            gr.Textbox(visible=False, interactive=False)
-                        ],
-                        samples=[],
+                    exercise_list = gr.Dataframe(
+                        value=[[ex.id, ex.title, ex.difficulty] for ex in self.exercise_service.get_exercises_by_chapter("chapter1")],
                         headers=["id","题目", "难度"],
+                        interactive=False,
                         label="习题列表",
-                        samples_per_page=10
                     )
                 
                 # 右侧：习题详情和代码编辑器
@@ -69,7 +60,7 @@ class ExerciseTab:
                     code_editor = gr.Code(
                         language="c",
                         label="编写代码",
-                        value="// 在此编写代码"
+                        elem_classes=["code-editor"],
                     )
                     run_btn = gr.Button("运行", variant="primary")
                     output_box = gr.Textbox(
@@ -77,7 +68,7 @@ class ExerciseTab:
                         lines=5,
                         placeholder="运行结果将显示在这里"
                     )
-
+                    
             # 事件绑定
             chapter_dropdown.change(
                 fn=self._handle_chapter_select,
@@ -89,7 +80,7 @@ class ExerciseTab:
             # Dataset 的 select 事件
             exercise_list.select(
                 fn=self._handle_exercise_select,
-                outputs=[exercise_description, code_editor]
+                outputs=[exercise_description]
             )
             
             run_btn.click(

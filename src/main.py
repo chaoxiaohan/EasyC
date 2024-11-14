@@ -21,11 +21,13 @@ load_dotenv()
 
 # 将 demo 设置为全局变量
 css_path = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "compiler.css")
-with open(css_path, "r", encoding="utf-8") as f:
-    css_content = f.read()
+# with open(css_path, "r", encoding="utf-8") as f:
+#     css_content = f.read()
+
+
 
 # 在模块级别直接创建界面
-with gr.Blocks(title="EasyC - C语言在线编程平台", css=css_content) as demo:
+with gr.Blocks(title="EasyC - C语言在线编程平台", css_paths=css_path) as demo:
     gr.Markdown("""
     # EasyC 🚀 - 实时 AI 评测，助你快速提升编程能力
     
