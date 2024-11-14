@@ -207,11 +207,11 @@ def create_compiler_tab(compiler_service: LocalCompilerService):
                         gr.update(value=""),  # 清空代码输入
                         gr.update(value=""),  # 清空程序输入
                         gr.update(value=""),  # 清空运行结果
-                        gr.update(value="*点击按钮开始分析*")  # 清空 AI 反馈
+                        # gr.update(value="*点击按钮开始分析*")  # 清空 AI 反馈
                     ]
                 
             clear_button.click(
                 fn=clean_code,
-                outputs=[code_input, program_input, output, ai_feedback]
+                outputs=[code_input, program_input, output]
             )
     

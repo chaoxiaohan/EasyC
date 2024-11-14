@@ -99,14 +99,20 @@ class LocalCompilerService:
 
     def update_credentials(self, api_key: str) -> bool:
         """更新凭证，主要是用于设置 API Key"""
-        try:
-            # 重新初始化 feedback service
-            self.feedback_service = AIFeedbackService(api_key=api_key)
-            logger.info("Credentials updated successfully")
+        if not api_key:
+            self.feedback_service = None
             return True
-        except Exception as e:
-            logger.error(f"Failed to update credentials: {e}")
-            return False
+        else:
+            try:
+                if not self.feedback_service:
+                    self.feedback_service = AIFeedbackService(api_key=api_key)
+                else:
+                    self.feedback_service.update_api_key(api_key)
+                logger.info("Credentials updated successfully")
+                return True
+            except Exception as e:
+                logger.error(f"Failed to update credentials: {e}")
+                return False
 
 
     async def get_ai_feedback(self, code: str, output: dict) -> str:
