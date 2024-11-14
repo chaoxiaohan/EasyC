@@ -14,13 +14,14 @@ class ExerciseTab:
 
     def _handle_chapter_select(self, chapter_id: str):
         """处理章节选择"""
+        LOG.info(f"Selecting chapter: {chapter_id}")
         exercises = self.exercise_service.get_exercises_by_chapter(chapter_id)
         return [[exercise.id, exercise.title, exercise.difficulty] for exercise in exercises]
 
     def _handle_exercise_select(self, evt: gr.SelectData):
         """处理习题选择"""
-        # evt.value 包含选中行的数据
-        exercise_id = evt.value 
+        exercise_id = evt.value
+        LOG.info(f"Selecting exercise: {exercise_id}")
         exercise = self.exercise_service.get_exercise_by_id(exercise_id)
         self.current_exercise = exercise_id
         
@@ -29,10 +30,16 @@ class ExerciseTab:
     async def _handle_run_code(self, code: str):
         """处理代码运行"""
         if not self.current_exercise:
+            LOG.warning("Attempted to run code without selecting an exercise")
             return "请先选择一个习题"
-            
-        result = await self.exercise_service.run_code(self.current_exercise, code)
-        return result["output"]
+        
+        LOG.info(f"Running code for exercise: {self.current_exercise}")
+        try:
+            result = await self.exercise_service.run_code(self.current_exercise, code)
+            return result["output"]
+        except Exception as e:
+            LOG.error(f"Error running code: {e}")
+            return f"运行代码时出错: {e}"
     
     def create(self):
         """创建习题练习标签页"""
@@ -73,7 +80,6 @@ class ExerciseTab:
             chapter_dropdown.change(
                 fn=self._handle_chapter_select,
                 inputs=[chapter_dropdown],
-                # outputs=[exercise_list, exercise_description, code_editor, output_box]
                 outputs=exercise_list
             )
             

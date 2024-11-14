@@ -1,0 +1,19 @@
+{
+  "chapters": [
+    {
+      "id": "chapter1",
+      "title": "C语言基础",
+      "path": "/chapters/chapter1"
+    },
+    {
+      "id": "chapter2",
+      "title": "控制流程",
+      "path": "/chapters/chapter2"
+    },
+    {
+      "id": "chapter3",
+      "title": "数组与函数",
+      "path": "/chapters/chapter3"
+    }
+  ]
+}

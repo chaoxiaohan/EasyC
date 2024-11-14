@@ -1,0 +1,17 @@
+{
+    "id": "ex2_1",
+    "title": "判断奇偶数",
+    "difficulty": "easy",
+    "description": "编写一个程序，读取一个整数并判断它是奇数还是偶数。",
+    "test_cases": [
+        {
+        "input": "4",
+        "expected_output": "even\n"
+        },
+        {
+        "input": "7",
+        "expected_output": "odd\n"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int num;\n    // 在这里编写代码\n    return 0;\n}"
+}

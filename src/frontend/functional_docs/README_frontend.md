@@ -9,6 +9,9 @@ frontend/
 │
 ├── tabs/                  # 标签页模块
 │   ├── compiler_tab.py    # 编译器标签页
+│   ├── exercise_tab/     # 习题练习标签页
+│   │   ├── exercise_tab.py    # 主标签页组件
+│   │   └── components/        # 子组件目录
 │   └── functional_docs/   # 标签页文档
 │
 └── functional_docs/       # 功能文档目录
@@ -24,6 +27,7 @@ Frontend 模块负责整个应用程序的用户界面实现，主要包含：
 
 2. **功能标签页**
    - 代码编译器页面
+   - 习题练习页面
    - 未来扩展的其他功能页面
 
 3. **样式系统**
@@ -42,10 +46,15 @@ Frontend 模块负责整个应用程序的用户界面实现，主要包含：
 ```
 Frontend
 ├── Tabs System
-│   └── Compiler Tab
-│       ├── Code Editor
-│       ├── Settings Panel
-│       └── Output Display
+│   ├── Compiler Tab
+│   │   ├── Code Editor
+│   │   ├── Settings Panel
+│   │   └── Output Display
+│   └── Exercise Tab
+│       ├── Chapter Navigator
+│       ├── Exercise List
+│       ├── Exercise Editor
+│       └── Result Display
 └── Static Resources
     └── CSS Styles
 ```
@@ -141,7 +150,10 @@ Frontend
 ## 未来规划
 1. **功能扩展**
    - 更多编程语言支持
-   - 代码练习系统
+   - 习题系统功能增强
+     - 习题难度分级优化
+     - 进度追踪系统
+     - 习题解答历史
    - 学习资源中心
 
 2. **界面优化**

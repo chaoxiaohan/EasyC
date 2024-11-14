@@ -1,0 +1,13 @@
+{
+    "id": "ex2_2",
+    "title": "计算阶乘",
+    "difficulty": "medium",
+    "description": "编写一个程序，计算输入数字的阶乘。",
+    "test_cases": [
+        {
+        "input": "5",
+        "expected_output": "120\n"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int n;\n    // 在这里编写代码\n    return 0;\n}"
+}

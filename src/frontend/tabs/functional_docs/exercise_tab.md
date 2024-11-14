@@ -18,12 +18,12 @@ class ExerciseTab:
 ### 1. 左侧面板
 - **章节选择器** (gr.Dropdown)
   - 显示所有可用章节
-  - 格式：`(chapter_id, 第id章 (Y题))`
+  - 默认值: "chapter1"
   - 触发章节内容加载
 
-- **习题列表** (gr.Dataset)
+- **习题列表** (gr.Dataframe)  // 更改为 Dataframe 而不是 Dataset
   - 显示当前章节所有习题
-  - 列表头：["题目", "难度"]
+  - 列表头：["id", "题目", "难度"]  // 更新列表头
   - 支持习题选择
 
 ### 2. 右侧面板
@@ -51,16 +51,9 @@ class ExerciseTab:
 - **触发**: 当用户选择新的章节时
 - **功能**:
   - 加载章节习题列表
-  - 清空当前习题状态
-  - 更新界面显示
 - **返回数据**:
   ```python
-  {
-      "exercise_list": [[title, difficulty], ...],
-      "exercise_description": "",
-      "code_editor": "",
-      "output_box": ""
-  }
+  [[exercise.id, exercise.title, exercise.difficulty] for exercise in exercises]
   ```
 
 ### 2. 习题选择处理
@@ -68,15 +61,10 @@ class ExerciseTab:
 - **触发**: 当用户选择习题时
 - **功能**:
   - 加载习题详情
-  - 设置代码模板
   - 更新当前习题状态
 - **返回数据**:
   ```python
-  {
-      "exercise_description": "### 标题\n描述",
-      "code_editor": "代码模板",
-      "output_box": ""
-  }
+  f"### {exercise.title}\n\n{exercise.description}"
   ```
 
 ### 3. 代码运行处理
@@ -86,9 +74,9 @@ class ExerciseTab:
   - 验证习题选择状态
   - 执行代码
   - 显示运行结果
-- **错误处理**:
-  - 未选择习题时的提示
-  - 运行错误的展示
+- **返回值**: 
+  - 运行结果或错误信息的字符串
+- **API名称**: "run_code"  // 添加 API 名称说明
 
 ## 状态管理
 - 使用 `current_exercise` 追踪当前选中的习题

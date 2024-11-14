@@ -1,0 +1,18 @@
+{
+    "id": "chapter3",
+    "title": "数组与函数",
+    "exercises": [
+        {
+        "id": "ex3_1",
+        "title": "数组最大值",
+        "difficulty": "medium",
+        "path": "/exercises/ex3_1"
+        },
+        {
+        "id": "ex3_2",
+        "title": "反转数组",
+        "difficulty": "medium",
+        "path": "/exercises/ex3_2"
+        }
+    ]
+}

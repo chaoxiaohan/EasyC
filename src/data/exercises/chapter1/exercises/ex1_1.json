@@ -1,0 +1,13 @@
+{
+  "id": "ex1_1",
+  "title": "Hello World",
+  "difficulty": "easy",
+  "description": "编写一个程序，输出 'Hello, World!'",
+  "test_cases": [
+    {
+      "input": "",
+      "expected_output": "Hello, World!\n"
+    }
+  ],
+  "solution_template": "#include <stdio.h>\n\nint main() {\n\t// 在这里编写代码\n\treturn 0;\n}"
+}

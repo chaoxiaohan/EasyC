@@ -1,0 +1,13 @@
+{
+    "id": "ex3_2",
+    "title": "反转数组",
+    "difficulty": "medium",
+    "description": "编写一个程序，将输入的数组反转后输出。第一个输入为数组长度，接下来是数组元素。",
+    "test_cases": [
+        {
+        "input": "4\n1 2 3 4",
+        "expected_output": "4 3 2 1\n"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int n;\n    int arr[100];\n    // 在这里编写代码\n    return 0;\n}"
+}

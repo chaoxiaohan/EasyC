@@ -1,0 +1,18 @@
+{
+    "id": "chapter1",
+    "title": "C语言基础",
+    "exercises": [
+        {
+        "id": "ex1_1",
+        "title": "Hello World",
+        "difficulty": "easy",
+        "path": "/exercises/ex1_1"
+        },
+        {
+        "id": "ex1_2",
+        "title": "整数相加",
+        "difficulty": "easy",
+        "path": "/exercises/ex1_2"
+        }
+    ]
+}

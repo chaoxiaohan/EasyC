@@ -12,6 +12,14 @@ backend/
 │   ├── local_compiler_service.py
 │   └── functional_docs/
 │
+├── exercise/              # 习题相关功能模块
+│   ├── exercise_repository.py
+│   ├── exercise_service.py
+│   ├── models/
+│   │   ├── exercise.py
+│   │   └── solution.py
+│   └── functional_docs/
+│
 ├── utils/                  # 工具类模块
 │   ├── logger.py          # 日志工具
 │   └── path_utils.py      # 路径处理工具
@@ -32,7 +40,12 @@ Backend 模块是整个项目的服务端核心，主要提供以下功能：
    - AI API 集成和管理
    - 反馈结果处理
 
-3. **工具支持**
+3. **习题管理**
+   - 习题数据存储和访问
+   - 章节管理
+   - 代码运行和验证
+
+4. **工具支持**
    - 日志记录和管理
    - 文件路径处理
    - 通用工具函数
@@ -43,13 +56,15 @@ Backend
 ├── LocalCompilerService
 │   └── AIFeedbackService
 │       └── AIFeedbackEngine
+├── ExerciseService
+│   └── ExerciseRepository
 └── Utils
     ├── Logger
     └── PathUtils
 ```
 
 ## 技术栈
-- Python 3.8+
+- Python 3.10+
 - asyncio 用于异步操作
 - DeepSeek Chat API
 - 本地编译工具链
