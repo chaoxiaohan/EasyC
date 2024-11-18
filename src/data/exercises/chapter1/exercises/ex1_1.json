@@ -5,7 +5,7 @@
   "description": "编写一个程序，输出 'Hello, World!'",
   "test_cases": [
     {
-      "input": "",
+      "input": null,
       "expected_output": "Hello, World!\n"
     }
   ],

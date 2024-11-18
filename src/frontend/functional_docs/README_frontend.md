@@ -7,6 +7,9 @@ frontend/
 │   └── css/               # CSS 样式文件
 │       └── compiler.css   # 编译器界面样式
 │
+├── components/            # 通用组件目录
+│   └── welcome.py        # 欢迎页面组件
+│
 ├── tabs/                  # 标签页模块
 │   ├── compiler_tab.py    # 编译器标签页
 │   ├── exercise_tab/     # 习题练习标签页
@@ -24,13 +27,18 @@ Frontend 模块负责整个应用程序的用户界面实现，主要包含：
    - 基于 Gradio 的界面构建
    - 响应式布局设计
    - 主题和样式管理
+   - 欢迎页面组件
 
 2. **功能标签页**
    - 代码编译器页面
    - 习题练习页面
    - 未来扩展的其他功能页面
 
-3. **样式系统**
+3. **通用组件**
+   - 欢迎页面（welcome.py）
+   - 其他可复用组件
+
+4. **样式系统**
    - CSS 样式定义
    - 主题定制支持
    - 响应式适配
@@ -45,6 +53,8 @@ Frontend 模块负责整个应用程序的用户界面实现，主要包含：
 ### 组件关系
 ```
 Frontend
+├── Components
+│   └── Welcome Component
 ├── Tabs System
 │   ├── Compiler Tab
 │   │   ├── Code Editor
@@ -58,6 +68,7 @@ Frontend
 └── Static Resources
     └── CSS Styles
 ```
+
 
 ## 设计原则
 1. **用户体验**

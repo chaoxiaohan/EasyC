@@ -1,18 +1,18 @@
 {
     "id": "chapter3",
-    "title": "数组与函数",
+    "title": "选择语句",
     "exercises": [
-        {
+      {
         "id": "ex3_1",
-        "title": "数组最大值",
-        "difficulty": "medium",
-        "path": "/exercises/ex3_1"
-        },
-        {
+        "title": "三数最大值",
+        "difficulty": "easy",
+        "path": "exercises/ex3_1.json"
+      },
+      {
         "id": "ex3_2",
-        "title": "反转数组",
+        "title": "工资计算器",
         "difficulty": "medium",
-        "path": "/exercises/ex3_2"
-        }
+        "path": "exercises/ex3_2.json"
+      }
     ]
-}
+  }

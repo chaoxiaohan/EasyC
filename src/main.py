@@ -13,36 +13,31 @@ import gradio as gr
 
 from backend.compiler.local_compiler_service import LocalCompilerService
 from backend.exercise.exercise_service import ExerciseService
-from frontend.tabs.compiler_tab import create_compiler_tab
+from frontend.tabs.compiler_tab import CompilerTab
 from frontend.tabs.exercise_tab.exercise_tab import ExerciseTab
+from frontend.components.welcome import get_welcome_markdown
 
 # 加载环境变量
 load_dotenv()
 
 # 将 demo 设置为全局变量
-css_path = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "compiler.css")
+css_path_compiler = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "compiler.css")
+css_path_exercises = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "exercises.css")
 # with open(css_path, "r", encoding="utf-8") as f:
 #     css_content = f.read()
 
 
 
 # 在模块级别直接创建界面
-with gr.Blocks(title="EasyC - C语言在线编程平台", css_paths=css_path) as demo:
-    gr.Markdown("""
-    # EasyC 🚀 - 实时 AI 评测，助你快速提升编程能力
-    
-    ### 功能说明：
-    1. 支持C语言编程
-    2. 如果程序需要输入，请在输入框中提供
-    3. 点击运行查看结果
-    4. 配置 api_key 后，点击 `AI 分析` 按钮，AI 会自动对结果进行分析，并给出改进建议
-    """)
+with gr.Blocks(title="EasyC - C语言在线编程平台", css_paths=[css_path_compiler, css_path_exercises]) as demo:
+    gr.Markdown(get_welcome_markdown())
+
     compiler_service = LocalCompilerService()
 
     exercise_service = ExerciseService(compiler_service)
     ExerciseTab(exercise_service).create()
 
-    create_compiler_tab(compiler_service)
+    CompilerTab(compiler_service).create()
     
 def main():
     LOG.info("Starting EasyC application")

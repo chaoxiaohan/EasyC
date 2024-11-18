@@ -1,0 +1,10 @@
+/* 设置第一列（ID列）的样式 */
+.exercise-list td:first-child {
+    color: #2563eb;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.exercise-list td:first-child:hover {
+    color: #1d4ed8;
+}

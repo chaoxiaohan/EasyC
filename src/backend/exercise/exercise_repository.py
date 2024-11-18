@@ -1,4 +1,5 @@
 # src/backend/exercise/exercise_repository.py
+
 import json
 from utils.path_utils import ProjectPaths
 from utils.logger import LOG
@@ -13,32 +14,46 @@ class ExerciseRepository:
         self._load_exercises()
 
     def _load_exercises(self):
-        """从JSON文件加载习题数据"""
-        LOG.info("Loading exercises from JSON file")
-        exercises_path = ProjectPaths.get_project_path('src', 'data', 'exercises', 'metadata.json')
-        
+        """从多个JSON文件加载习题数据"""
+        LOG.info("Loading exercises from JSON files")
+        index_path = ProjectPaths.get_project_path('src', 'data', 'exercises', 'index.json')
         try:
-            with open(exercises_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
+            # 首先加载章节索引
+            with open(index_path, 'r', encoding='utf-8') as f:
+                index_data = json.load(f)
             
-            for chapter in data['chapters']:
-                for ex in chapter['exercises']:
-                    exercise = Exercise(
-                        id=ex['id'],
-                        chapter_id=chapter['id'],
-                        title=ex['title'],
-                        difficulty=ex['difficulty'],
-                        description=ex['description'],
-                        solution_template=ex['solution_template'],
-                        test_cases=[TestCase(**tc) for tc in ex['test_cases']]
-                    )
-                    self.exercises[ex['id']] = exercise
+            # 遍历每个章节加载详细数据
+            for chapter in index_data['chapters']:
+                chapter_metadata_path = ProjectPaths.get_project_path('src', 'data', 'exercises', 
+                                                        chapter['path'], 'metadata.json')
+                
+                with open(chapter_metadata_path, 'r', encoding='utf-8') as f:
+                    chapter_metadata = json.load(f)
+                    
+                # 加载章节中的每个练习题
+                for ex_meta in chapter_metadata['exercises']:
+                    exercise_path = ProjectPaths.get_project_path('src', 'data', 'exercises',
+                                                                chapter['path'], ex_meta['path'])
+                    
+                    with open(exercise_path, 'r', encoding='utf-8') as f:
+                        ex_data = json.load(f)
+                        exercise = Exercise(
+                            id=ex_data['id'],
+                            chapter_id=chapter['id'],
+                            title=ex_data['title'],
+                            difficulty=ex_data['difficulty'],
+                            description=ex_data['description'],
+                            solution_template=ex_data['solution_template'],
+                            test_cases=[TestCase(**tc) for tc in ex_data['test_cases']]
+                        )
+                        self.exercises[ex_data['id']] = exercise
+                        
             LOG.info(f"Successfully loaded {len(self.exercises)} exercises")
-        except FileNotFoundError:
-            LOG.error(f"Exercise metadata file not found at: {exercises_path}")
+        except FileNotFoundError as e:
+            LOG.error(f"File not found: {str(e)}")
             raise
-        except json.JSONDecodeError:
-            LOG.error(f"Invalid JSON format in exercise metadata file: {exercises_path}")
+        except json.JSONDecodeError as e:
+            LOG.error(f"Invalid JSON format: {str(e)}")
             raise
         except Exception as e:
             LOG.error(f"Unexpected error while loading exercises: {str(e)}")
@@ -71,3 +86,4 @@ class ExerciseRepository:
         else:
             LOG.warning(f"Exercise not found: {exercise_id}")
         return exercise
+    

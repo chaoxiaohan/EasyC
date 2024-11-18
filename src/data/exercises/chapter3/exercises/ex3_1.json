@@ -1,13 +1,17 @@
 {
     "id": "ex3_1",
-    "title": "数组最大值",
-    "difficulty": "medium",
-    "description": "编写一个程序，找出数组中的最大值。第一个输入为数组长度，接下来是数组元素。",
+    "title": "三数最大值",
+    "difficulty": "easy",
+    "description": "键盘输入三个整数 a, b, c, 输出其中的最大值。",
     "test_cases": [
-        {
-        "input": "5\n1 3 5 2 4",
-        "expected_output": "5\n"
-        }
+      {
+        "input": "1 2 3",
+        "expected_output": "最大值是: 3"
+      },
+      {
+        "input": "5 2 4",
+        "expected_output": "最大值是: 5"
+      }
     ],
-    "solution_template": "#include <stdio.h>\n\nint main() {\n    int n;\n    int arr[100];\n    // 在这里编写代码\n    return 0;\n}"
-}
+    "solution_template": "# include <stdio.h>\n\nint main()\n{\n    int a, b, c;\n    scanf(\"%d %d %d\", &a, &b, &c);\n    \n    int max = a;\n    if(b > max) max = b;\n    if(c > max) max = c;\n    \n    printf(\"最大值是：%d\\n\", max);\n    return 0;\n}"
+  }
