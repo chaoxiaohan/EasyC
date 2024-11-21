@@ -1,0 +1,31 @@
+{
+    "id": "chapter6",
+    "title": "六、字符串",
+    "description": "本章节将介绍C语言的字符串操作，包括字符串的定义、初始化和基本操作。",
+    "exercises": [
+        {
+            "id": "ex6_1",
+            "title": "字符串长度",
+            "difficulty": "easy",
+            "path": "exercises/ex6_1.json"
+        },
+        {
+            "id": "ex6_2",
+            "title": "首尾字符",
+            "difficulty": "easy",
+            "path": "exercises/ex6_2.json"
+        },
+        {
+            "id": "ex6_3",
+            "title": "字母大小写转换",
+            "difficulty": "medium",
+            "path": "exercises/ex6_3.json"
+        },
+        {
+            "id": "ex6_4",
+            "title": "输入带空格的字符串",
+            "difficulty": "hard",
+            "path": "exercises/ex6_4.json"
+        }
+    ]
+}

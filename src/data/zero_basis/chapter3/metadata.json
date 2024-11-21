@@ -1,0 +1,43 @@
+{
+  "id": "chapter3",
+  "title": "三、选择语句",
+  "description": "本章节将介绍C语言的选择语句，包括if语句、if-else语句、嵌套if语句和switch语句等内容。",
+  "exercises": [
+      {
+          "id": "ex3_1",
+          "title": "简单if语句",
+          "difficulty": "easy",
+          "path": "exercises/ex3_1.json"
+      },
+      {
+          "id": "ex3_2",
+          "title": "if-else判断偶数",
+          "difficulty": "easy",
+          "path": "exercises/ex3_2.json"
+      },
+      {
+          "id": "ex3_3",
+          "title": "嵌套if成绩判断",
+          "difficulty": "medium",
+          "path": "exercises/ex3_3.json"
+      },
+      {
+          "id": "ex3_4",
+          "title": "switch成绩判断",
+          "difficulty": "medium",
+          "path": "exercises/ex3_4.json"
+      },
+      {
+          "id": "ex3_5",
+          "title": "最大值查找",
+          "difficulty": "medium",
+          "path": "exercises/ex3_5.json"
+      },
+      {
+          "id": "ex3_6",
+          "title": "工资计算器",
+          "difficulty": "hard",
+          "path": "exercises/ex3_6.json"
+      }
+  ]
+}

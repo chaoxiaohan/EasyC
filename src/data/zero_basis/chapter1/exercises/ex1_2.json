@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter1",
+    "id": "ex1_2",
+    "title": "基本运算",
+    "difficulty": "easy",
+    "description": "编写程序计算以下表达式：\n- (15 + 25) * 2\n- 50 / 3（整数除法）\n- 50.0 / 3（浮点数除法）",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "80\n16\n16.666667"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    // 请在此处编写计算代码\n\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int sum = 15 + 25;\n    int result1 = sum * 2;\n    int result2 = 50 / 3;\n    float result3 = 50.0 / 3;\n    printf(\"%d\\n\", result1);\n    printf(\"%d\\n\", result2);\n    printf(\"%f\\n\", result3);\n    return 0;\n}"
+}

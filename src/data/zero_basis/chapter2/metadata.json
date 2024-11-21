@@ -1,0 +1,13 @@
+{
+  "id": "chapter2",
+  "title": "二、顺序程序设计",
+  "description": "本章节将介绍C语言的顺序程序设计，包括基本输入输出、数据处理等内容。",
+  "exercises": [
+      {
+          "id": "ex2_1",
+          "title": "成绩计算",
+          "difficulty": "medium",
+          "path": "exercises/ex2_1.json"
+      }
+  ]
+}

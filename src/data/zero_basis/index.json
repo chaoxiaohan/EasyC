@@ -1,0 +1,49 @@
+{
+  "chapters": [
+    {
+      "id": "chapter1",
+      "title": "数据和C",
+      "path": "chapter1"
+    },
+    {
+      "id": "chapter2", 
+      "title": "顺序程序设计",
+      "path": "chapter2"
+    },
+    {
+      "id": "chapter3",
+      "title": "选择语句",
+      "path": "chapter3"
+    },
+    {
+      "id": "chapter4",
+      "title": "循环语句",
+      "path": "chapter4"
+    },
+    {
+      "id": "chapter5",
+      "title": "数组",
+      "path": "chapter5"
+    },
+    {
+      "id": "chapter6",
+      "title": "字符串",
+      "path": "chapter6"
+    },
+    {
+      "id": "chapter7",
+      "title": "指针和指针变量",
+      "path": "chapter7"
+    },
+    {
+      "id": "chapter8",
+      "title": "数组和指针",
+      "path": "chapter8"
+    },
+    {
+      "id": "chapter9",
+      "title": "函数",
+      "path": "chapter9"
+    }
+  ]
+}

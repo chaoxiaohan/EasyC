@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter8",
+    "id": "ex8_4",
+    "title": "字符串指针操作",
+    "difficulty": "hard",
+    "description": "给定一个字符数组 str[20] = \"Hello\"：\n- 使用指针遍历并打印每个字符\n- 统计字符串的长度 \n- 将所有小写字母转换为大写字母",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "字符遍历：H e l l o  \n字符串长度：5  \n转换大写：HELLO"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    char str[20] = \"Hello\";\n    char *p = str;\n    int len = 0;\n    \n    /* 遍历打印 */\n    printf(\"字符遍历：\");\n    while(*p != '\\0') {\n        printf(\"%c \", *p);\n        p++;\n    }\n    printf(\"\\n\");\n    \n    /* 计算长度 */\n    p = str;\n    while(*p != '\\0') {\n        len++;\n        p++;\n    }\n    printf(\"字符串长度：%d\\n\", len);\n    \n    /* 转换大写 */\n    p = str;\n    printf(\"转换大写：\");\n    while(*p != '\\0') {\n        if(*p >= 'a' && *p <= 'z') {\n            *p = *p - 32;\n        }\n        printf(\"%c\", *p);\n        p++;\n    }\n    printf(\"\\n\");\n    \n    return 0;\n}"
+}

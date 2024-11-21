@@ -16,4 +16,5 @@ class Exercise:
     difficulty: str
     description: str
     solution_template: str
+    solution: str
     test_cases: List[TestCase]

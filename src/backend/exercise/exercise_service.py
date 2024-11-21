@@ -4,15 +4,17 @@ from utils.logger import LOG
 from typing import List, Optional
 from .exercise_repository import ExerciseRepository
 from .models.exercise import Exercise
+from backend.ai.feedback_service import AIFeedbackService
 
 class ExerciseService:
     def __init__(self, compiler_service):
         self.repository = ExerciseRepository()
         self.compiler_service = compiler_service
+        self.feedback_service = None
 
     def get_chapters(self) -> List[dict]:
         """获取所有章节"""
-        return self.repository.get_chapters()
+        return self.repository._chapter_cache
 
     def get_exercises_by_chapter(self, chapter_id: str) -> List[Exercise]:
         """获取指定章节的习题列表"""

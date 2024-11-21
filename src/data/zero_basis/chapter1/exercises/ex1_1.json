@@ -1,0 +1,15 @@
+{
+  "chapter_id": "chapter1",
+  "id": "ex1_1",
+  "title": "变量定义",
+  "difficulty": "easy",
+  "description": "请定义一个整型变量、一个浮点型变量和一个字符型变量，并为它们赋予合适的值。",
+  "test_cases": [
+      {
+          "input": "",
+          "expected_output": "请与答案自检变量定义是否正确"
+      }
+  ],
+  "solution_template": "#include <stdio.h>\n\nint main() {\n    // 请在此处定义变量\n\n    return 0;\n}",
+  "solution": "#include <stdio.h>\n\nint main() {\n    int num = 42;\n    float pi = 3.14;\n    char letter = 'A';\n    \n    printf(\"整型变量: %d\\n\", num);\n    printf(\"浮点型变量: %.2f\\n\", pi);\n    printf(\"字符型变量: %c\\n\", letter);\n    return 0;\n}"
+}

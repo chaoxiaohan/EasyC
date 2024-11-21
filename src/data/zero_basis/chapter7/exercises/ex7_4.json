@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter7",
+    "id": "ex7_4",
+    "title": "成绩修改",
+    "difficulty": "medium",
+    "description": "小明的编号为 M ，本次考试成绩为语文 85，数学 90，英语 92，但是将英语成绩错登为 52。请完成以下要求：  \n1）输出错误的英语成绩；  \n2）用指针变量的方式修改英语成绩；  \n3）输出英语成绩在内存的地址；  \n4）输出最终正确的成绩。",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "错误的英语成绩：52  \n英语成绩的内存地址：0x  \n修改后的英语成绩：92"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    char id = 'M';\n    int chinese = 85;\n    int math = 90;\n    int english = 52;  // 错误的成绩\n    int *p_english = &english;  \n    // 输出错误的成绩\n    printf(\"错误的英语成绩：%d\\n\", english);  \n    // 输出成绩的内存地址\n    printf(\"英语成绩的内存地址：%p\\n\", p_english);  \n    // 使用指针修改成绩\n    *p_english = 92;  \n    // 输出修改后的成绩\n    printf(\"修改后的英语成绩：%d\\n\", english);\n    return 0;\n}"
+}

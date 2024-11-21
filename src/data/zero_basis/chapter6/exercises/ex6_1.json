@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter6",
+    "id": "ex6_1",
+    "title": "输入连续的字符串",
+    "difficulty": "easy",
+    "description": "定义一个字符串变量，从键盘输入一个字符串，输出其长度。",
+    "test_cases": [
+        {
+            "input": "Hello",
+            "expected_output": "5"
+        },
+        {
+            "input": "Hello World",
+            "expected_output": "5"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    char str[100];\n    scanf(\"%s\", str);\n    \n    int length = 0;\n    while(str[length] != '\\0') {\n        length++;\n    }\n    \n    printf(\"%d\\n\", length);\n    return 0;\n}"
+}

@@ -20,15 +20,20 @@ class ExerciseService:
 - **功能**: 
   - 初始化习题仓库
   - 注入编译器服务依赖
+  - 初始化 AI 反馈服务为 None
 - **依赖**:
   - ExerciseRepository
   - CompilerService
+  - AIFeedbackService (可选)
 
 ### 2. 数据访问
 - **方法组**:
   - `get_chapters()`
-  - `get_exercises_by_chapter()`
-  - `get_exercise_by_id()`
+    - 返回章节缓存数据
+  - `get_exercises_by_chapter(chapter_id: str)`
+    - 返回指定章节的所有习题
+  - `get_exercise_by_id(exercise_id: str)`
+    - 返回指定ID的习题详情
 - **功能**:
   - 提供习题数据的高层访问接口
   - 封装仓库层的数据操作
@@ -38,16 +43,19 @@ class ExerciseService:
 - **方法**: `run_code(exercise_id: str, code: str)`
 - **功能**:
   - 验证习题存在性
-  - 运行用户代码
-  - 处理运行结果
+  - 使用第一个测试用例运行用户代码
+  - 返回运行结果
 - **返回格式**:
   ```python
   {
-      "status": "success/error",
-      "output": "运行输出",
-      "error": "错误信息"
+      "success": bool,
+      "output": str,
+      "error": str,
+      "execution_time": float
   }
   ```
+- **错误处理**:
+  - 习题不存在时返回 `{"error": "习题不存在"}`
 
 ## 错误处理
 - 习题不存在时返回错误信息
@@ -59,21 +67,30 @@ class ExerciseService:
 - 支持并发请求处理
 - 避免阻塞主线程
 
-## 扩展性考虑
-- 支持后续添加更多测试用例
-- 预留 AI 反馈接口
-- 支持添加用户进度追踪
-
 ## 使用示例
 ```python
 # 初始化服务
 compiler_service = CompilerService()
 exercise_service = ExerciseService(compiler_service)
 
-# 获取习题
+# 获取习题数据
 chapters = exercise_service.get_chapters()
 exercises = exercise_service.get_exercises_by_chapter("chapter1")
+exercise = exercise_service.get_exercise_by_id("exercise1")
 
 # 运行代码
-result = await exercise_service.run_code("ex1_1", "user_code")
+result = await exercise_service.run_code("exercise1", """
+#include <stdio.h>
+int main() {
+    printf("Hello World\\n");
+    return 0;
+}
+""")
+print(result)  # {"success": true, "output": "Hello World", ...}
 ```
+
+## 数据流
+1. 客户端请求 → ExerciseService
+2. ExerciseService → ExerciseRepository (数据获取)
+3. ExerciseService → CompilerService (代码运行)
+4. ExerciseService → 客户端响应

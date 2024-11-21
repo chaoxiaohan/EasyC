@@ -1,0 +1,91 @@
+{
+    "id": "chapter9",
+    "title": "九、函数",
+    "description": "本章节将介绍C语言的函数，包括函数定义、调用、参数传递等内容。",
+    "exercises": [
+        {
+            "id": "ex9_1",
+            "title": "整数求和函数",
+            "difficulty": "easy",
+            "path": "exercises/ex9_1.json"
+        },
+        {
+            "id": "ex9_2",
+            "title": "最大值函数",
+            "difficulty": "easy",
+            "path": "exercises/ex9_2.json"
+        },
+        {
+            "id": "ex9_3",
+            "title": "偶数判断函数",
+            "difficulty": "easy",
+            "path": "exercises/ex9_3.json"
+        },
+        {
+            "id": "ex9_4",
+            "title": "绝对值函数",
+            "difficulty": "easy",
+            "path": "exercises/ex9_4.json"
+        },
+        {
+            "id": "ex9_5",
+            "title": "数组求和函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_5.json"
+        },
+        {
+            "id": "ex9_6",
+            "title": "数组最大值函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_6.json"
+        },
+        {
+            "id": "ex9_7",
+            "title": "数组元素翻倍函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_7.json"
+        },
+        {
+            "id": "ex9_8",
+            "title": "指针交换函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_8.json"
+        },
+        {
+            "id": "ex9_9",
+            "title": "数组最值函数",
+            "difficulty": "hard",
+            "path": "exercises/ex9_9.json"
+        },
+        {
+            "id": "ex9_10",
+            "title": "阶乘函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_10.json"
+        },
+        {
+            "id": "ex9_11",
+            "title": "素数判断函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_11.json"
+        },
+        {
+            "id": "ex9_12",
+            "title": "最大公约数函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_12.json"
+        },
+        {
+            "id": "ex9_13",
+            "title": "字符打印函数",
+            "difficulty": "medium",
+            "path": "exercises/ex9_13.json"
+        },
+        {
+            "id": "ex9_14",
+            "title": "数组偶数位交换函数",
+            "difficulty": "hard",
+            "path": "exercises/ex9_14.json"
+        }
+    ]
+}

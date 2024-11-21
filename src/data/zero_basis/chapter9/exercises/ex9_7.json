@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_7",
+    "title": "数组元素翻倍函数",
+    "difficulty": "medium",
+    "description": "编写一个函数，将数组（大小为5）中的所有元素乘以2，并打印结果。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4 5",
+            "expected_output": "2 4 6 8 10"
+        },
+        {
+            "input": "-1 0 1 2 3",
+            "expected_output": "-2 0 2 4 6"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nvoid doubleArray(int arr[], int size) {\n    for(int i = 0; i < size; i++) {\n        arr[i] *= 2;\n    }\n}\n\nint main() {\n    int arr[5];\n    for(int i = 0; i < 5; i++) {\n        scanf(\"%d\", &arr[i]);\n    }\n    doubleArray(arr, 5);\n    for(int i = 0; i < 5; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    return 0;\n}"
+}

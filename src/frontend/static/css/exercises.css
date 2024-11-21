@@ -1,10 +1,89 @@
-/* 设置第一列（ID列）的样式 */
-.exercise-list td:first-child {
-    color: #2563eb;
-    text-decoration: underline;
-    cursor: pointer;
+/* 整体容器样式 */
+.exercise-container {
+    padding: 1rem;
 }
 
-.exercise-list td:first-child:hover {
-    color: #1d4ed8;
+/* 提示框样式 */
+.exercise-tip {
+    margin-bottom: 1rem;
+    padding: 0rem 1rem;
+    background: #e8f4f8;
+    border-radius: 8px;
+    color: #2c5282;
+    line-height: 1.2;
+}
+
+/* 章节选择和习题列表卡片样式 */
+.exercise-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1.5rem;  /* 卡片底部间距 */
+}
+
+/* 习题列表样式 */
+.exercise-list {
+    margin: 1rem 0;
+    border-radius: 8px;
+    background: white;
+}
+
+/* 习题ID列（第一列）样式 */
+.exercise-list tbody td:first-child {
+    color: #3182ce;  /* 蓝色文字 */
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.exercise-list tbody td:first-child:hover {
+    color: #2c5282;  /* 鼠标悬停时的深蓝色 */
+    text-decoration: underline;
+}
+
+/* 习题描述区域样式 */
+.exercise-description {
+    background: #f8fafc;
+    padding: 1.2rem;
+    /* border-radius: 8px; */
+    /* margin-bottom: 1rem; */
+}
+
+/* 代码卡片样式 */
+.code-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+/* 代码编辑区域样式 */
+.code-editor {
+    /* margin: 1rem 0; */
+    border-radius: 8px;
+}
+
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    /* margin: 1rem 0; */
+}
+
+/* 运行结果样式 */
+.output-box {
+    background: #f8fafc;
+    /* border-radius: 8px; */
+}
+
+/* AI 反馈区域样式 */
+.ai-feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f0f9ff;
+    border-radius: 8px;
+    border-left: 4px solid #3182ce;
 }

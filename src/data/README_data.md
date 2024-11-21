@@ -6,7 +6,7 @@
 
 ```
 src/data/
-├── exercises/
+├── zero_basis/
 │   ├── index.json           # 章节目录索引
 │   ├── chapter1/           # 第1章 - C语言基础
 │   │   ├── metadata.json   # 章节元数据
@@ -50,19 +50,6 @@ src/data/
   - expected_output: 期望输出
 - solution_template: 解答模板代码
 
-## 当前内容概览
-
-### 第1章：C语言基础
-- ex1_1: Hello World (简单)
-- ex1_2: 整数相加 (简单)
-
-### 第2章：控制流程
-- ex2_1: 判断奇偶数 (简单)
-- ex2_2: 计算阶乘 (中等)
-
-### 第3章：数组与函数
-- ex3_1: 数组最大值 (中等)
-- ex3_2: 反转数组 (中等)
 
 ## 使用说明
 

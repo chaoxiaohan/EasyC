@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter6",
+    "id": "ex6_2",
+    "title": "首尾字符",
+    "difficulty": "easy",
+    "description": "定义一个字符串变量，从键盘输入一个字符串，输出其第一个字符和最后一个字符。",
+    "test_cases": [
+        {
+            "input": "Hello",
+            "expected_output": "首字符：H\n尾字符：o"
+        },
+        {
+            "input": "World!",
+            "expected_output": "首字符：W\n尾字符：!"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char str[100];\n    scanf(\"%s\", str);\n    printf(\"首字符：%c\\n\", str[0]);\n    printf(\"尾字符：%c\\n\", str[strlen(str)-1]);\n    return 0;\n}"
+}

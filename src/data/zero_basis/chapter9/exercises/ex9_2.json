@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_2",
+    "title": "最大值函数",
+    "difficulty": "easy",
+    "description": "编写一个函数计算两个整数的最大值，并在main函数中调用它。",
+    "test_cases": [
+        {
+            "input": "3 5",
+            "expected_output": "5"
+        },
+        {
+            "input": "-1 -3",
+            "expected_output": "-1"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint max(int a, int b) {\n    return a > b ? a : b;\n}\n\nint main() {\n    int x, y;\n    scanf(\"%d %d\", &x, &y);\n    printf(\"%d\\n\", max(x, y));\n    return 0;\n}"
+}

@@ -13,32 +13,38 @@ import gradio as gr
 
 from backend.compiler.local_compiler_service import LocalCompilerService
 from backend.exercise.exercise_service import ExerciseService
+from backend.ai.feedback_service import AIFeedbackService
 from frontend.tabs.compiler_tab import CompilerTab
-from frontend.tabs.exercise_tab.exercise_tab import ExerciseTab
-from frontend.components.welcome import get_welcome_markdown
+from frontend.tabs.exercise_tab import ExerciseTab
+from frontend.tabs.welcome_tab import WelcomeTab
+from frontend.tabs.settings_tab import SettingsTab
 
 # 加载环境变量
 load_dotenv()
 
 # 将 demo 设置为全局变量
-css_path_compiler = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "compiler.css")
-css_path_exercises = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "exercises.css")
-# with open(css_path, "r", encoding="utf-8") as f:
-#     css_content = f.read()
+compiler_css_path = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "compiler.css")
+exercises_css_path = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "exercises.css")
+welcome_css_path = str(ROOT_DIR / "src" / "frontend" / "static" / "css" / "welcome.css")
 
 
-
-# 在模块级别直接创建界面
-with gr.Blocks(title="EasyC - C语言在线编程平台", css_paths=[css_path_compiler, css_path_exercises]) as demo:
-    gr.Markdown(get_welcome_markdown())
-
-    compiler_service = LocalCompilerService()
-
-    exercise_service = ExerciseService(compiler_service)
-    ExerciseTab(exercise_service).create()
-
-    CompilerTab(compiler_service).create()
+with gr.Blocks(
+    title="EasyC - C语言在线编程平台",
+    css_paths=[compiler_css_path, exercises_css_path, welcome_css_path],
+    # theme=gr.themes.Glass(),
+) as demo:
     
+        WelcomeTab().create()
+
+        compiler_service = LocalCompilerService()
+        feedback_service = AIFeedbackService()
+        exercise_service = ExerciseService(compiler_service)
+
+        ExerciseTab(exercise_service, compiler_service, feedback_service).create()
+        CompilerTab(compiler_service, feedback_service).create()
+        SettingsTab(feedback_service).create()
+
+
 def main():
     LOG.info("Starting EasyC application")
     LOG.info("Launching EasyC application")
@@ -46,6 +52,7 @@ def main():
         # server_name="0.0.0.0",
         # server_port=7860
     )
+
 
 if __name__ == "__main__":
     try:

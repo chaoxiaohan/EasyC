@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter8",
+    "id": "ex8_2",
+    "title": "指针数组运算",
+    "difficulty": "medium",
+    "description": "给定一个整型数组 arr[5] = {4, 8, 2, 9, 5}，使用指针完成：\n- 计算数组所有元素的和\n- 找出数组中的最大值\n- 将数组所有元素翻倍并打印",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "数组元素和：28  \n最大值：9  \n翻倍后：8 16 4 18 10"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int arr[5] = {4, 8, 2, 9, 5};\n    int *p = arr;\n    int sum = 0, max = *p;\n    \n    /* 计算和与最大值 */\n    for(int i = 0; i < 5; i++) {\n        sum += *(p + i);\n        if(*(p + i) > max) max = *(p + i);\n    }\n    \n    printf(\"数组元素和：%d\\n\", sum);\n    printf(\"最大值：%d\\n\", max);\n    \n    /* 翻倍并打印 */\n    printf(\"翻倍后：\");\n    for(int i = 0; i < 5; i++) {\n        *(p + i) *= 2;\n        printf(\"%d \", *(p + i));\n    }\n    printf(\"\\n\");\n    \n    return 0;\n}"
+}
