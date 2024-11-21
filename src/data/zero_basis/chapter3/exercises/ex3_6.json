@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter3",
+    "id": "ex3_6",
+    "title": "工资计算器",
+    "difficulty": "hard",
+    "description": "编写一个程序，提示用户输入一周工作的小时数，然后打印工资总额、税金和净收入。要求：\n- 基本工资 = 20美元/小时\n- 加班（超过40小时）= 1.5倍的时间\n- 税率：\n  - 前300美元为15%\n  - 续150美元为20%\n  - 余下的为25%",
+    "test_cases": [
+        {
+            "input": "30",
+            "expected_output": "总工资：600\n税金：112\n净收入：488"
+        },
+        {
+            "input": "45",
+            "expected_output": "总工资：950\n税金：200\n净收入：750"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int hours;\n    double gross_pay, taxes, net_pay;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int hours;\n    double gross_pay, taxes = 0, net_pay;\n    \n    scanf(\"%d\", &hours);\n    \n    // 计算总工资\n    if (hours <= 40)\n        gross_pay = hours * 20;\n    else\n        gross_pay = 40 * 20 + (hours - 40) * 30;\n    \n    // 计算税金\n    if (gross_pay <= 300)\n        taxes = gross_pay * 0.15;\n    else if (gross_pay <= 450)\n        taxes = 300 * 0.15 + (gross_pay - 300) * 0.20;\n    else\n        taxes = 300 * 0.15 + 150 * 0.20 + (gross_pay - 450) * 0.25;\n    \n    net_pay = gross_pay - taxes;\n    \n    printf(\"总工资：%.0f\\n\", gross_pay);\n    printf(\"税金：%.0f\\n\", taxes);\n    printf(\"净收入：%.0f\\n\", net_pay);\n    \n    return 0;\n}"
+}

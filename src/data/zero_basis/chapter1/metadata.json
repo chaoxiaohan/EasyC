@@ -1,0 +1,31 @@
+{
+    "id": "chapter1",
+    "title": "一、数据和C",
+    "description": "本章节将介绍C语言的基础知识，包括：\n\n1. **变量定义**: 请定义一个整型变量、一个浮点型变量和一个字符型变量，并为它们赋予合适的值。\n\n2. **基本运算**: 编写程序计算以下表达式：\n    - (15 + 25) * 2\n    - 50 / 3（整数除法）\n    - 50.0 / 3（浮点数除法）\n\n...",
+    "exercises": [
+        {
+            "id": "ex1_1",
+            "title": "变量定义",
+            "difficulty": "easy",
+            "path": "exercises/ex1_1.json"
+        },
+        {
+            "id": "ex1_2",
+            "title": "基本运算",
+            "difficulty": "easy",
+            "path": "exercises/ex1_2.json"
+        },
+        {
+            "id": "ex1_3",
+            "title": "类型转换",
+            "difficulty": "medium",
+            "path": "exercises/ex1_3.json"
+        },
+        {
+            "id": "ex1_4",
+            "title": "关系运算",
+            "difficulty": "medium",
+            "path": "exercises/ex1_4.json"
+        }
+    ]
+}

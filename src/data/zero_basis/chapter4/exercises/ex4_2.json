@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter4",
+    "id": "ex4_2",
+    "title": "while循环求和",
+    "difficulty": "easy",
+    "description": "请用while循环计算100以内（含100）的整数之和并打印。",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "5050"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int sum = 0, i = 1;\n    while (i <= 100) {\n        sum += i;\n        i++;\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}"
+}

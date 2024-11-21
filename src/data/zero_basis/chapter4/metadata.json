@@ -1,0 +1,49 @@
+{
+    "id": "chapter4",
+    "title": "四、循环语句",
+    "description": "本章节将介绍C语言的循环语句，包括while循环、do-while循环和for循环等内容。",
+    "exercises": [
+        {
+            "id": "ex4_1",
+            "title": "while循环输出数列",
+            "difficulty": "easy",
+            "path": "exercises/ex4_1.json"
+        },
+        {
+            "id": "ex4_2",
+            "title": "while循环求和",
+            "difficulty": "easy",
+            "path": "exercises/ex4_2.json"
+        },
+        {
+            "id": "ex4_3",
+            "title": "do-while循环求和",
+            "difficulty": "easy",
+            "path": "exercises/ex4_3.json"
+        },
+        {
+            "id": "ex4_4",
+            "title": "for循环输出数列",
+            "difficulty": "easy",
+            "path": "exercises/ex4_4.json"
+        },
+        {
+            "id": "ex4_5",
+            "title": "for循环求和",
+            "difficulty": "easy",
+            "path": "exercises/ex4_5.json"
+        },
+        {
+            "id": "ex4_6",
+            "title": "统计偶数个数",
+            "difficulty": "medium",
+            "path": "exercises/ex4_6.json"
+        },
+        {
+            "id": "ex4_7",
+            "title": "位数之和",
+            "difficulty": "medium",
+            "path": "exercises/ex4_7.json"
+        }
+    ]
+}

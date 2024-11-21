@@ -1,0 +1,17 @@
+
+
+{
+    "chapter_id": "chapter5",
+    "id": "ex5_13",
+    "title": "二维数组转置",
+    "difficulty": "hard",
+    "description": "定义一个3行4列的二维数组a，从键盘输入一个整数t，a数组的值为t乘以当前行下标和列下标之和。转置这个二维数组，转置后的数组为b，分别输出原数组a和转置后数组b。",
+    "test_cases": [
+        {
+            "input": "2",
+            "expected_output": "原数组：  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 2 4 6  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 4 6 8  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4 6 8 10  \n转置后：  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 2 4  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 4 6  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4 6 8  \n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6 8 10"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int a[3][4], b[4][3], t;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int a[3][4], b[4][3], t;\n    scanf(\"%d\", &t);\n    \n    // 生成原数组\n    for(int i = 0; i < 3; i++) {\n        for(int j = 0; j < 4; j++) {\n            a[i][j] = t * (i + j);\n        }\n    }\n    \n    // 输出原数组\n    printf(\"原数组：\\n\");\n    for(int i = 0; i < 3; i++) {\n        for(int j = 0; j < 4; j++) {\n            printf(\"%d \", a[i][j]);\n        }\n        printf(\"\\n\");\n    }\n    \n    // 转置\n    for(int i = 0; i < 3; i++) {\n        for(int j = 0; j < 4; j++) {\n            b[j][i] = a[i][j];\n        }\n    }\n    \n    // 输出转置后的数组\n    printf(\"转置后：\\n\");\n    for(int i = 0; i < 4; i++) {\n        for(int j = 0; j < 3; j++) {\n            printf(\"%d \", b[i][j]);\n        }\n        printf(\"\\n\");\n    }\n    return 0;\n}"
+}

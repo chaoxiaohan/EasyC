@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter5",
+    "id": "ex5_3",
+    "title": "奇数之和",
+    "difficulty": "easy",
+    "description": "定义一个大小为10的整数数组，从键盘输入10个整数，输出数组中所有奇数的和。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4 5 6 7 8 9 10",
+            "expected_output": "25"
+        },
+        {
+            "input": "2 4 6 8 10 12 14 16 18 20",
+            "expected_output": "0"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int arr[10], sum = 0;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int arr[10], sum = 0;\n    for(int i = 0; i < 10; i++) {\n        scanf(\"%d\", &arr[i]);\n        if(arr[i] % 2 == 1) {\n            sum += arr[i];\n        }\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}"
+}

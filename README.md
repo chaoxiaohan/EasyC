@@ -13,19 +13,25 @@ An intuitive, AI-powered platform designed to make learning C programming access
 
 ## 🌟 Features
 
-### 1. Code Compilation & Execution
+### 1. Exercise System
+- Chapter-based exercise organization
+- Real-time code validation
+- Answer viewing support
+- Progress tracking (Coming Soon)
+
+### 2. Code Compilation & Execution
 - Real-time C code compilation
 - Interactive code execution
 - Comprehensive error handling
 - Program input/output support
 
-### 2. AI-Powered Analysis
+### 3. AI-Powered Analysis
 - Intelligent code review
 - Optimization suggestions
 - Error diagnosis
 - Learning recommendations
 
-### 3. User Interface
+### 4. User Interface
 - Clean and intuitive design
 - Real-time feedback
 - Responsive layout
@@ -36,11 +42,13 @@ An intuitive, AI-powered platform designed to make learning C programming access
 ```
 EasyC
 ├── Frontend (Gradio)
-│   ├── Code Editor
-│   ├── Settings Panel
-│   └── Output Display
+│   ├── Welcome Tab
+│   ├── Exercise Tab
+│   ├── Compiler Tab
+│   └── Settings Tab
 │
 ├── Backend Services
+│   ├── Exercise Service
 │   ├── Compiler Service
 │   └── AI Feedback Service
 │
@@ -78,6 +86,7 @@ python src/main.py
 - Python 3.10+
 - GCC Compiler
 - Docker (optional)
+- DeepSeek API Key (for AI features)
 
 ### Dependencies
 - Gradio 5.4.0
@@ -92,19 +101,24 @@ python src/main.py
 src/
 ├── backend/               # Backend services
 │   ├── ai/               # AI analysis
-│   └── compiler/         # Code compilation
+│   ├── compiler/         # Code compilation
+│   └── exercise/         # Exercise system
 ├── frontend/             # UI components
+│   ├── static/          # Static resources
+│   └── tabs/            # UI tabs
 ├── utils/               # Utilities
 └── main.py              # Entry point
 ```
 
 ### Key Components
 1. **Frontend Module**
-   - Gradio-based UI
-   - Responsive design
-   - Theme management
+   - Welcome page
+   - Exercise system
+   - Code compiler
+   - Settings management
 
 2. **Backend Module**
+   - Exercise management
    - Code compilation
    - AI analysis
    - Error handling
@@ -141,13 +155,15 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 ## 📈 Future Plans
 
 1. **Feature Expansion**
-   - Support for more programming languages
-   - Advanced code analysis
+   - Exercise progress tracking
+   - Multiple test case support
    - Learning resource integration
+   - Code auto-save functionality
 
 2. **Technical Improvements**
-   - Performance optimization
+   - Parallel test execution
    - Enhanced AI capabilities
+   - Performance optimization
    - Mobile responsiveness
 
 ## 📄 License
@@ -156,6 +172,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+- DeepSeek team for AI capabilities
 - GCC team for the C compiler
 - Docker for containerization
 - All our contributors and supporters

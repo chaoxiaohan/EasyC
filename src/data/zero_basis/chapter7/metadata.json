@@ -1,0 +1,31 @@
+{
+    "id": "chapter7",
+    "title": "七、指针和指针变量",
+    "description": "本章节将介绍C语言的指针概念，包括指针变量的定义、初始化和基本操作。",
+    "exercises": [
+        {
+            "id": "ex7_1",
+            "title": "指针地址输出",
+            "difficulty": "easy",
+            "path": "exercises/ex7_1.json"
+        },
+        {
+            "id": "ex7_2",
+            "title": "指针值输出",
+            "difficulty": "easy",
+            "path": "exercises/ex7_2.json"
+        },
+        {
+            "id": "ex7_3",
+            "title": "指针值地址输出",
+            "difficulty": "easy",
+            "path": "exercises/ex7_3.json"
+        },
+        {
+            "id": "ex7_4",
+            "title": "成绩修改",
+            "difficulty": "medium",
+            "path": "exercises/ex7_4.json"
+        }
+    ]
+}

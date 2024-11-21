@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_6",
+    "title": "数组最大值函数",
+    "difficulty": "medium",
+    "description": "编写一个函数，接收一个整型数组（大小为5），返回数组中的最大值。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4 5",
+            "expected_output": "5"
+        },
+        {
+            "input": "-1 -2 -3 -4 -5",
+            "expected_output": "-1"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint arrayMax(int arr[], int size) {\n    int max = arr[0];\n    for(int i = 1; i < size; i++) {\n        if(arr[i] > max) max = arr[i];\n    }\n    return max;\n}\n\nint main() {\n    int arr[5];\n    for(int i = 0; i < 5; i++) {\n        scanf(\"%d\", &arr[i]);\n    }\n    printf(\"%d\\n\", arrayMax(arr, 5));\n    return 0;\n}"
+}

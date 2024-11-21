@@ -1,0 +1,19 @@
+{
+  "chapter_id": "chapter3",
+  "id": "ex3_1",
+  "title": "简单if语句",
+  "difficulty": "easy",
+  "description": "请从键盘输入一个整数 a, 如果小于 0, 将其变为0; 最后打印 a。",
+  "test_cases": [
+      {
+          "input": "-5",
+          "expected_output": "0"
+      },
+      {
+          "input": "8",
+          "expected_output": "8"
+      }
+  ],
+  "solution_template": "#include <stdio.h>\n\nint main() {\n    int a;\n    // 请在此处编写代码\n    return 0;\n}",
+  "solution": "#include <stdio.h>\n\nint main() {\n    int a;\n    scanf(\"%d\", &a);\n    if (a < 0) {\n        a = 0;\n    }\n    printf(\"%d\\n\", a);\n    return 0;\n}"
+}

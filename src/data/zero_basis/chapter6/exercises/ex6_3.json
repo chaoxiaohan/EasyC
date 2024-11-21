@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter6",
+    "id": "ex6_3",
+    "title": "字母大小写转换",
+    "difficulty": "medium",
+    "description": "请输入6个小写字母，将其转换为大写字母，并输出。",
+    "test_cases": [
+        {
+            "input": "abcdef",
+            "expected_output": "ABCDEF"
+        },
+        {
+            "input": "python",
+            "expected_output": "PYTHON"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    char c;\n    for(int i = 0; i < 6; i++) {\n        scanf(\"%c\", &c);\n        printf(\"%c\", c - 32);\n    }\n    printf(\"\\n\");\n    return 0;\n}"
+}

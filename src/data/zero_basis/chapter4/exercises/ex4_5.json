@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter4",
+    "id": "ex4_5",
+    "title": "for循环求和",
+    "difficulty": "easy",
+    "description": "请用for循环计算100以内（含100）的整数之和并打印。",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "5050"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    for (int i = 1; i <= 100; i++) {\n        sum += i;\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}"
+}

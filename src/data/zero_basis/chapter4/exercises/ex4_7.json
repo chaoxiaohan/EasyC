@@ -1,0 +1,23 @@
+{
+    "chapter_id": "chapter4",
+    "id": "ex4_7",
+    "title": "位数之和",
+    "difficulty": "medium",
+    "description": "计算一个正整数的所有位数之和。例如：123的位数之和为1+2+3=6。",
+    "test_cases": [
+        {
+            "input": "123",
+            "expected_output": "6"
+        },
+        {
+            "input": "9527",
+            "expected_output": "23"
+        },
+        {
+            "input": "1000",
+            "expected_output": "1"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int num, sum = 0;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int num, sum = 0;\n    scanf(\"%d\", &num);\n    while (num > 0) {\n        sum += num % 10;\n        num /= 10;\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}"
+}

@@ -1,0 +1,85 @@
+{
+    "id": "chapter5",
+    "title": "五、数组",
+    "description": "本章节将介绍C语言的数组，包括一维数组和二维数组的基本操作。",
+    "exercises": [
+        {
+            "id": "ex5_1",
+            "title": "一维数组最大值",
+            "difficulty": "easy",
+            "path": "exercises/ex5_1.json"
+        },
+        {
+            "id": "ex5_2",
+            "title": "一维数组最小值",
+            "difficulty": "easy",
+            "path": "exercises/ex5_2.json"
+        },
+        {
+            "id": "ex5_3",
+            "title": "奇数之和",
+            "difficulty": "easy",
+            "path": "exercises/ex5_3.json"
+        },
+        {
+            "id": "ex5_4",
+            "title": "偶数之和",
+            "difficulty": "easy",
+            "path": "exercises/ex5_4.json"
+        },
+        {
+            "id": "ex5_5",
+            "title": "二维数组行和",
+            "difficulty": "medium",
+            "path": "exercises/ex5_5.json"
+        },
+        {
+            "id": "ex5_6",
+            "title": "二维数组列和",
+            "difficulty": "medium",
+            "path": "exercises/ex5_6.json"
+        },
+        {
+            "id": "ex5_7",
+            "title": "二维数组行最大值",
+            "difficulty": "medium",
+            "path": "exercises/ex5_7.json"
+        },
+        {
+            "id": "ex5_8",
+            "title": "二维数组列最小值",
+            "difficulty": "medium",
+            "path": "exercises/ex5_8.json"
+        },
+        {
+            "id": "ex5_9",
+            "title": "二维数组行平均值",
+            "difficulty": "medium",
+            "path": "exercises/ex5_9.json"
+        },
+        {
+            "id": "ex5_10",
+            "title": "数组最值查找",
+            "difficulty": "easy",
+            "path": "exercises/ex5_10.json"
+        },
+        {
+            "id": "ex5_11",
+            "title": "主对角线元素之和",
+            "difficulty": "medium",
+            "path": "exercises/ex5_11.json"
+        },
+        {
+            "id": "ex5_12",
+            "title": "对角线元素之和",
+            "difficulty": "medium",
+            "path": "exercises/ex5_12.json"
+        },
+        {
+            "id": "ex5_13",
+            "title": "二维数组转置",
+            "difficulty": "hard",
+            "path": "exercises/ex5_13.json"
+        }
+    ]
+}
