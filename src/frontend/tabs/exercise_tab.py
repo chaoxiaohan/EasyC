@@ -29,24 +29,26 @@ class ExerciseTab:
         LOG.info(f"Selecting exercise: {exercise_id}")
         exercise = self.exercise_service.get_exercise_by_id(exercise_id)
         self.current_exercise = exercise
-        test_description = f"### {exercise.id}：{exercise.title}\n\n{exercise.description}\n\n"
+        test_description = f"### 题目：{exercise.id}. {exercise.title}\n\n{exercise.description}\n\n"
         for i, test_case in enumerate(exercise.test_cases, 1):
             test_description += f"\n##### case {i}:\n&nbsp;&nbsp;&nbsp;&nbsp;**输入**: {test_case.input}  \n&nbsp;&nbsp;&nbsp;&nbsp;**输出**: {test_case.expected_output}"
         return [test_description, gr.update(value="")]
     
-    def _handle_get_solution(self):
+    def _handle_get_solution(self, visible):
         """处理查看答案按钮"""
-        solution = self.current_exercise.solution
-
-        return f"```c\n{solution}\n```"
+        if visible:
+            return ["", gr.update(visible=False)]
+        else:
+            solution = self.current_exercise.solution
+            return [f"```c\n{solution}\n```", gr.update(visible=True)]
 
     def _get_ai_feedback_start(self):
         return "*AI 分析中...*"
     
     async def _get_ai_feedback(self, exercise_description: str, input_data: str, code: str, output: str):
         """处理AI分析按钮"""
-        analysis = await self.feedback_service.get_feedback(code=code, compile_result=output, input_data=input_data, exercise_description=exercise_description)
-        return analysis
+        async for analysis in self.feedback_service.get_feedback(code=code, compile_result=output, input_data=input_data, exercise_description=exercise_description):
+            yield analysis
     
     async def _run_code(self, code: str, input_data: str):
         """处理代码运行"""
@@ -97,15 +99,20 @@ class ExerciseTab:
                     with gr.Column(scale=2):
                         exercise_description = gr.Markdown(
                             "请选择一个习题",
+                            max_height=500,
                             show_copy_button=True,
                             elem_classes=["exercise-description"]
                         )
                         
-                        solution_area = gr.Markdown(elem_classes=["solution-area"])
+                        solution_area = gr.Markdown(
+                            # height=100,
+                            max_height=500,
+                            elem_classes=["solution-area"]
+                        )
                         
                         with gr.Row(elem_classes=["button-group"]):
                             get_solution_button = gr.Button(
-                                "💡 查看答案",
+                                "💡 查看/隐藏答案",
                                 variant="secondary",
                             )
                             get_ai_feedback_button = gr.Button(
@@ -113,20 +120,26 @@ class ExerciseTab:
                                 variant="primary",
                             )
                         
-                        ai_feedback = gr.Markdown(show_copy_button=True, elem_classes=["ai-feedback"])
+                        ai_feedback = gr.Markdown(
+                            show_copy_button=True, 
+                            elem_classes=["ai-feedback"],
+                            max_height=500,
+                        )
                         
                     with gr.Column(scale=3, elem_classes=["code-card"]):
-                        program_input = gr.Textbox(
-                            label="程序输入（在这里一次性输出程序运行时需要的所有输入值）",
-                            placeholder="多个输入值请用空格分隔，例如: 1 2 3",
-                            lines=2,
-                        )
                         
                         code_editor = gr.Code(
                             language="c",
                             label="编写代码",
-                            lines=10,
+                            lines=20,
+                            max_lines=50,
                             elem_classes=["code-editor"]
+                        )
+
+                        program_input = gr.Textbox(
+                            label="程序输入（在这里一次性输出程序运行时需要的所有输入值）",
+                            placeholder="多个输入值请用空格分隔，例如: 1 2 3",
+                            lines=2,
                         )
                         
                         with gr.Row(elem_classes=["button-group"]):
@@ -162,7 +175,8 @@ class ExerciseTab:
 
             get_solution_button.click(
                 fn=self._handle_get_solution,
-                outputs=[solution_area],
+                inputs=[solution_area],
+                outputs=[solution_area, solution_area],
             )
 
             get_ai_feedback_button.click(

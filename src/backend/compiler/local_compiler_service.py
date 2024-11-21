@@ -61,7 +61,7 @@ class LocalCompilerService:
                 )
                 
                 if run_result.returncode == 0:
-                    output = f"✅ 运行成功！程序输出:\n---\n{run_result.stdout}"
+                    output = f"✅ 运行成功！程序输出:\n---\n{run_result.stdout}\n"
                 else:
                     output = f"❌ 运行错误:\n---\n{run_result.stderr}"
                 

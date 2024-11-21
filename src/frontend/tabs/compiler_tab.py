@@ -23,14 +23,13 @@ class CompilerTab:
     
     async def _run_code(self, code: str, input_data: str):
         result = await self.compiler_service.compile_and_run(code, input_data)
-        return result["output"],
-    
+        return result["output"]
     def _get_ai_feedback_start(self):
         return "*AI 分析中...*"
 
     async def _get_ai_feedback(self, code: str, output: str, input_data: str):
-        analysis = await self.feedback_service.get_feedback(code=code, compile_result=output, input_data=input_data)
-        return analysis
+        async for chunk in self.feedback_service.get_feedback(code=code, compile_result=output, input_data=input_data):
+            yield chunk
 
     def _clean_code(self):
         return [
@@ -75,9 +74,9 @@ class CompilerTab:
                             output = gr.Textbox(
                                 label="运行结果",
                                 lines=6,
-                                show_copy_button=True,
+                                placeholder="运行结果将显示在这里",
                                 interactive=False,
-                                elem_classes=["output-area"]
+                                # elem_classes=["output-area"]
                             )
 
                             get_ai_feedback_button = gr.Button(
