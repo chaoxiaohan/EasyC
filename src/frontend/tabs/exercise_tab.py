@@ -70,7 +70,7 @@ class ExerciseTab:
             with gr.Accordion(label="章节和习题列表", open=False):
                 with gr.Column(elem_classes=["exercise-card"]):
                     chapter_radio = gr.Radio(
-                        choices=[c["id"] for c in self.exercise_service.get_chapters()],
+                        choices=[(c['title'], c['id']) for c in self.exercise_service.get_chapters()],
                         interactive=True,
                         value="chapter1",
                         label="选择章节",
