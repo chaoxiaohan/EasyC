@@ -18,7 +18,7 @@ class SettingsTab:
 
     def create(self):
         with gr.Tab("设置 ⚙️"):
-            with gr.Column(elem_classes=["settings-container"]):
+            with gr.Column():
                 gr.Markdown("""
                     ## AI 功能配置
                     配置 API Key 后即可使用 AI 分析功能。
@@ -33,13 +33,13 @@ class SettingsTab:
                     label="DeepSeek API Key",
                     placeholder="请输入您的 API Key",
                     type="password",
-                    elem_classes=["settings-input"]
                 )
 
                 save_button = gr.Button(
                     "保存配置",
                     variant="primary",
-                    elem_classes=["settings-button"]
+                    # elem_classes=["settings-button"],
+                    elem_classes=["save-button"]
                 )
 
                 status_message = gr.Markdown(visible=True)

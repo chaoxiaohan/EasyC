@@ -41,70 +41,56 @@ class CompilerTab:
     def create(self):
         with gr.Tab("在线编译⚡"):
             with gr.Column():
-                gr.Markdown("> 💡 提示：配置 API Key 后可启用 AI 分析功能，获得更专业的代码建议，让你的学习事半功倍！")
-                with gr.Row():
+                with gr.Row(elem_classes="split-columns"):
                     # 左侧编辑区域
-                    with gr.Column(scale=3, elem_classes=["editor-column"]):
-                        with gr.Column(elem_classes=["editor-card"]):
+                    with gr.Column(scale=3):
+                        with gr.Column():
                             code_input = gr.Code(
                                 label="C 代码编辑器",
                                 language="c",
-                                lines=15,  # 增加默认行数
+                                lines=24,
+                                max_lines=24,
                                 show_label=True,
                                 wrap_lines=True,
                                 container=True,
                                 elem_classes=["code-editor"]
                             )
                             
-                            with gr.Column(elem_classes=["input-control-group"]):
+                            with gr.Column():
                                 program_input = gr.Textbox(
                                     label="程序输入（在这里一次性输入程序运行时需要的所有输入值）",
                                     placeholder="多个输入值请用空格分隔，例如: 1 2 3",
-                                    lines=2,
-                                    elem_classes=["program-input"]
+                                    max_lines=2,
                                 )
                                 
                                 with gr.Row(elem_classes=["button-group"]):
-                                    run_button = gr.Button("▶ 运行", variant="primary", elem_classes=["action-button", "run-button"])
-                                    clean_button = gr.Button("🗑 清空", variant="secondary", elem_classes=["action-button", "clear-button"])
+                                    run_button = gr.Button("▶ 运行", variant="primary")
+                                    clean_button = gr.Button("🗑 清空", variant="secondary")
                     
                     # 右侧输出区域
-                    with gr.Column(scale=2, elem_classes=["output-column"]):
-                        with gr.Column(elem_classes=["output-card"]):
-                            output = gr.Textbox(
-                                label="运行结果",
-                                lines=6,
-                                placeholder="运行结果将显示在这里",
-                                interactive=False,
-                                # elem_classes=["output-area"]
-                            )
+                    with gr.Column(scale=2, elem_classes=["output-card", "scrollable"]):
+                        output = gr.Textbox(
+                            label="运行结果",
+                            lines=6,
+                            placeholder="运行结果将显示在这里",
+                            interactive=False,
+                        )
 
+                        with gr.Row(elem_classes=["button-group"]):
                             get_ai_feedback_button = gr.Button(
                                 "🤖 AI 分析",  # 添加图标并修改文本
                                 value=False,
                                 interactive=True,
                                 variant="primary",
-                                # size="sm",
-                                elem_classes=["get-ai-feedback-button"]
                             )
-                            
-                            ai_feedback = gr.Markdown(
-                                value="*点击按钮开始分析*",
-                                show_copy_button=True,
-                                elem_classes=["feedback-area"]
-                            )
+                        
+                        ai_feedback = gr.Markdown(
+                            value="*点击按钮开始分析*",
+                            show_copy_button=True,
+                            elem_classes=["feedback-area"]
+                        )
 
-                            # copy_button = gr.Button(
-                            #     "📋 复制分析结果",  # 修改按钮文本,
-                            #     size="sm",
-                            #     elem_classes=["copy-button"]
-                            # )
                             
-                            # copy_status = gr.Markdown(
-                            #     value="✅ 已复制到剪贴板！", 
-                            #     visible=False,
-                            #     elem_classes=["copy-status"]
-                            # )  
             
             run_button.click(
                 fn=self._clean_feedback,

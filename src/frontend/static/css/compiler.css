@@ -25,49 +25,6 @@
     border: 1px solid #e0e0e0 !important;
 }
 
-/* AI 分析按钮容器样式 */
-.get-ai-feedback-button {
-    width: fit-content !important;
-    margin: 1rem 0 !important;
-}
-
-/* AI 分析按钮样式 */
-.get-ai-feedback-button button {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    background-color: #4CAF50 !important; /* 使用绿色以区分其他按钮 */
-    border: none !important;
-    color: white !important;
-    font-size: 0.9rem !important;
-    padding: 8px 16px !important;
-    border-radius: 8px !important;
-    transition: all 0.2s ease-in-out !important;
-    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2) !important;
-}
-
-/* AI 分析按钮悬停效果 */
-.get-ai-feedback-button button:hover {
-    background-color: #43A047 !important;
-    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3) !important;
-    transform: translateY(-1px) !important;
-}
-
-/* AI 分析按钮点击效果 */
-.get-ai-feedback-button button:active {
-    background-color: #388E3C !important;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    transform: translateY(0) !important;
-}
-
-/* AI 分析按钮禁用状态 */
-.get-ai-feedback-button button:disabled {
-    background-color: #A5D6A7 !important;
-    cursor: not-allowed !important;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
 
 /* Code 编辑器整体容器 */
 .code-editor-container {
@@ -77,4 +34,34 @@
     border: 1px solid #e0e0e0 !important;
     background: #ffffff !important;
 }
+
+
+.scrollable {
+    height: 80vh;  /* 改用视窗高度的百分比 */
+    overflow-y: auto;
+    padding: 5px;
+    display: block;
+    overflow-x: hidden;
+}
+
+/* 添加组件之间的间距 */
+.scrollable > div {
+    margin-bottom: 8px !important;  /* 组件之间的垂直间距 */
+}
+
+/* 添加响应式布局支持 */
+@media (max-width: 768px) {
+    .column-container {
+        flex-direction: column;  /* 在小屏幕上改为垂直布局 */
+        height: auto;
+        gap: 8px;
+    }
+    
+    .scrollable-column {
+        height: 60vh;  /* 在小屏幕上减小高度 */
+        padding: 6px;
+    }
+}
+
+
 

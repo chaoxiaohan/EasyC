@@ -33,14 +33,7 @@ def _handle_chapter_select(self, chapter_id: str):
 def _handle_exercise_select(self, evt: gr.SelectData):
 ```
 - 功能: 处理习题选择
-- 返回: 更新习题描述和清空答案区域
-
-**_handle_get_solution**
-```python
-def _handle_get_solution(self):
-```
-- 功能: 获取并显示习题答案
-- 返回: 格式化的答案代码
+- 返回: 更新习题描述和答案区域
 
 **_get_ai_feedback_start/_get_ai_feedback**
 ```python
@@ -67,22 +60,22 @@ def _clean_code(self):
 ## UI 布局
 ```
 习题练习✍️
-├── 提示信息
-├── 习题选择区域
-│   ├── 章节选择 (Radio)
-│   └── 习题列表 (Dataframe)
+├── 章节和习题列表 (Accordion)
+│   └── 列表区域 (Column)
+│       ├── 章节选择 (Radio)
+│       └── 习题列表 (Dataframe)
 └── 主要内容区域 (Row)
-    ├── 左侧面板 (Column, scale=2)
-    │   ├── 习题描述 (Markdown)
-    │   ├── 答案区域 (Markdown)
-    │   ├── 按钮组
-    │   │   ├── 查看答案按钮
-    │   │   └── AI分析按钮
-    │   └── AI反馈区域 (Markdown)
-    └── 右侧面板 (Column, scale=3)
-        ├── 程序输入框 (Textbox)
+    ├── 左侧面板 (Column, scale=3)
+    │   └── 标签页组 (TabItem)
+    │       ├── 题目描述 (Markdown)
+    │       ├── 本题参考答案 (Markdown)
+    │       └── AI 分析 (TabItem)
+    │           ├── AI分析按钮
+    │           └── AI反馈区域 (Markdown)
+    └── 右侧面板 (Column, scale=5)
         ├── 代码编辑器 (Code)
-        ├── 按钮组
+        ├── 程序输入框 (Textbox)
+        ├── 按钮组 (Row)
         │   ├── 运行按钮
         │   └── 清空按钮
         └── 输出框 (Textbox)
@@ -94,20 +87,16 @@ def _clean_code(self):
    - 重置习题描述、答案和 AI 反馈
 
 2. **习题选择**:
-   - 更新习题描述
-   - 清空答案区域
+   - 更新习题描述和答案区域
 
 3. **代码运行**:
    - 执行代码并显示结果
 
-4. **查看答案**:
-   - 显示当前习题的答案代码
-
-5. **AI 分析**:
+4. **AI 分析**:
    - 显示分析中状态
    - 获取并显示 AI 反馈
 
-6. **清空代码**:
+5. **清空代码**:
    - 清空代码编辑器、输入框和输出框
 
 ## 使用示例
