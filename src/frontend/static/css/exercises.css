@@ -6,33 +6,7 @@
     height: 100%;
 }
 
-/* 提示框样式 */
-.exercise-tip {
-    margin-bottom: 1rem;
-    padding: 0rem 1rem;
-    background: #e8f4f8;
-    border-radius: 8px;
-    color: #2c5282;
-    line-height: 1.2;
-}
 
-/* 章节选择和习题列表卡片样式 */
-.exercise-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e2e8f0;
-    margin-bottom: 1.5rem;  /* 卡片底部间距 */
-}
-
-
-/* 习题列表样式 */
-.exercise-list {
-    margin: 1rem 0;
-    border-radius: 8px;
-    background: white;
-}
 
 /* 习题ID列（第一列）样式 */
 .exercise-list tbody td:first-child {
@@ -104,40 +78,20 @@
 }
 
 .scrollable-column {
-    height: 95vh;  /* 改用视窗高度的百分比 */
+    height: 83vh;  /* 使用 calc 来计算高度，减去头部可能的空间 */
+    /* max-height: 1000px;  添加最大高度限制 */
+    /* min-height: 500px;   添加最小高度限制 */
     overflow-y: auto;
-    padding: 5px;
+    /* padding: clamp(5px, 1vw, 15px);  /* 使用 clamp 让内边距随屏幕大小变化 */
+    /* display: block; */
+    /* overflow-x: hidden; */
     display: block;
-    overflow-x: hidden;
-}
-
-/* 添加组件之间的间距 */
-.scrollable-column > div {
-    margin-bottom: 8px !important;  /* 组件之间的垂直间距 */
-}
-
-.exercise-container {
-    margin: 10px;
-    padding: 0;
 }
 
 .split-columns {
     display: flex;
-    gap: 20px;
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
+    gap: clamp(10px, 2vw, 20px);  /* 使用 clamp 让间距随屏幕大小变化 */
+    margin: clamp(10px, 2vh, 20px) 0 !important;
+    max-width: 100%;
 }
 
-/* 添加响应式布局支持 */
-@media (max-width: 768px) {
-    .column-container {
-        flex-direction: column;  /* 在小屏幕上改为垂直布局 */
-        height: auto;
-        gap: 8px;
-    }
-    
-    .scrollable-column {
-        height: 60vh;  /* 在小屏幕上减小高度 */
-        padding: 6px;
-    }
-}

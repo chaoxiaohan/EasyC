@@ -60,7 +60,8 @@ class CompilerTab:
                                 program_input = gr.Textbox(
                                     label="程序输入（在这里一次性输入程序运行时需要的所有输入值）",
                                     placeholder="多个输入值请用空格分隔，例如: 1 2 3",
-                                    max_lines=2,
+                                    lines=2,
+                                    max_lines=3,
                                 )
                                 
                                 with gr.Row(elem_classes=["button-group"]):

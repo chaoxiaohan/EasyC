@@ -85,9 +85,9 @@ class ExerciseTab:
                         max_height=300,
                     )
             # 习题详情和代码编辑器
-            with gr.Row(elem_classes=["exercise-container", "split-columns"]):
+            with gr.Row():
                 # 左侧列, 习题描述和答案
-                with gr.Column(scale=3, elem_classes=["scrollable-column"]):
+                with gr.Column(scale=3):
                     with gr.TabItem("题目描述"):
                         exercise_description = gr.Markdown(
                             "请选择一个习题",
@@ -101,7 +101,7 @@ class ExerciseTab:
                             # show_copy_button=True,
                             elem_classes=["solution-area"]
                         )
-                    with gr.TabItem("AI 分析"):
+                    with gr.TabItem("AI 分析", elem_classes=["scrollable-column"]):
                         with gr.Row(elem_classes=["button-group"]):
                             get_ai_feedback_button = gr.Button(
                                 "🤖 获取AI 分析",
@@ -111,7 +111,7 @@ class ExerciseTab:
                         ai_feedback = gr.Markdown(
                             show_copy_button=True,
                             elem_classes=["ai-feedback"],
-                            max_height=500,
+                            max_height=1000,
                         )
                 
                 # 右侧列, 代码编辑器
@@ -120,8 +120,8 @@ class ExerciseTab:
                     code_editor = gr.Code(
                         language="c",
                         label="代码",
-                        lines=15,
-                        max_lines=20,
+                        lines=16,
+                        max_lines=25,
                         elem_classes=["code-editor"]
                     )
 

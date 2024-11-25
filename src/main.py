@@ -37,7 +37,7 @@ theme = gr.themes.Origin(
 ).set(
     body_background_fill='*neutral_50',
     block_background_fill='white',
-    form_gap_width='*spacing_xxs',
+    form_gap_width='*spacing_sm',
     layout_gap='*spacing_sm',
     code_background_fill='*primary_50',
     button_primary_background_fill="*primary_400",
