@@ -5,13 +5,11 @@ import subprocess
 import uuid
 from typing import Dict, Optional
 from utils.logger import logger
-from backend.ai.feedback_service import AIFeedbackService
+
 
 class LocalCompilerService:
-    def __init__(self, api_key: str = None):
-        self.compile_dir = "/tmp/compile"
-        self.feedback_service = None
-        
+    def __init__(self,):
+        self.compile_dir = "/tmp/compile"        
         # 创建编译目录
         os.makedirs(self.compile_dir, exist_ok=True)
         logger.info(f"LocalCompilerService initialized with compile_dir: {self.compile_dir}")
@@ -37,13 +35,14 @@ class LocalCompilerService:
             # 编译代码
             output_file = os.path.join(self.compile_dir, file_id)
             compile_result = subprocess.run(
-                ["gcc", "-Wall", "-Werror", source_file, "-o", output_file],
+                ["gcc", "-Wall", "-fstack-protector-strong", "-D_FORTIFY_SOURCE=2",
+                 "-O2", source_file, "-o", output_file],
                 capture_output=True,
                 text=True
             )
             
             if compile_result.returncode != 0:
-                output = f"❌ 编译错误:\n{compile_result.stderr}"
+                output = f"❌ 编译错误:\n---\n{compile_result.stderr}"
                 return {
                     "success": False,
                     "output": output,
@@ -62,9 +61,9 @@ class LocalCompilerService:
                 )
                 
                 if run_result.returncode == 0:
-                    output = f"✅ 运行成功！程序输出:\n{run_result.stdout}"
+                    output = f"✅ 运行成功！程序输出:\n---\n{run_result.stdout}\n"
                 else:
-                    output = f"❌ 运行错误:\n{run_result.stderr}"
+                    output = f"❌ 运行错误:\n---\n{run_result.stderr}"
                 
                 return {
                     "success": run_result.returncode == 0,
@@ -76,7 +75,7 @@ class LocalCompilerService:
             except subprocess.TimeoutExpired:
                 return {
                     "success": False,
-                    "output": "❌ 程序执行超时",
+                    "output": "❌ 程序执行超时\n---\nExecution timeout",
                     "error": "Execution timeout",
                     "execution_time": 5.0
                 }
@@ -85,7 +84,7 @@ class LocalCompilerService:
             logger.exception("Error in compile_and_run")
             return {
                 "success": False,
-                "output": f"❌ 运行错误: {str(e)}",
+                "output": f"❌ 运行错误:\n---\n{str(e)}",
                 "error": str(e),
                 "execution_time": 0.0
             }
@@ -97,33 +96,33 @@ class LocalCompilerService:
             if os.path.exists(output_file):
                 os.remove(output_file)
 
-    def update_credentials(self, api_key: str) -> bool:
-        """更新凭证，主要是用于设置 API Key"""
-        if not api_key:
-            self.feedback_service = None
-            return True
-        else:
-            try:
-                if not self.feedback_service:
-                    self.feedback_service = AIFeedbackService(api_key=api_key)
-                else:
-                    self.feedback_service.update_api_key(api_key)
-                logger.info("Credentials updated successfully")
-                return True
-            except Exception as e:
-                logger.error(f"Failed to update credentials: {e}")
-                return False
+    # def update_credentials(self, api_key: str) -> bool:
+    #     """更新凭证，主要是用于设置 API Key"""
+    #     if not api_key:
+    #         self.feedback_service = None
+    #         return True
+    #     else:
+    #         try:
+    #             if not self.feedback_service:
+    #                 self.feedback_service = AIFeedbackService(api_key=api_key)
+    #             else:
+    #                 self.feedback_service.update_api_key(api_key)
+    #             logger.info("Credentials updated successfully")
+    #             return True
+    #         except Exception as e:
+    #             logger.error(f"Failed to update credentials: {e}")
+    #             return False
 
 
-    async def get_ai_feedback(self, code: str, output: dict) -> str:
-        """获取 AI 反馈"""
-        if not self.feedback_service:
-            return "请先在设置中配置 API Key 以启用 AI 反馈功能"
-        elif not self.feedback_service.api_key:
-            return "请先在设置中配置 API Key 以启用 AI 反馈功能"
+    # async def get_ai_feedback(self, code: str, output: dict) -> str:
+    #     """获取 AI 反馈"""
+    #     if not self.feedback_service:
+    #         return "请先在设置中配置 API Key 以启用 AI 反馈功能"
+    #     elif not self.feedback_service.api_key:
+    #         return "请先在设置中配置 API Key 以启用 AI 反馈功能"
         
-        try:
-            return await self.feedback_service.get_feedback(code, output)
-        except Exception as e:
-            logger.error(f"Error getting AI feedback: {e}")
-            return f"获取 AI 反馈时出错: {str(e)}"
+    #     try:
+    #         return await self.feedback_service.get_feedback(code, output)
+    #     except Exception as e:
+    #         logger.error(f"Error getting AI feedback: {e}")
+    #         return f"获取 AI 反馈时出错: {str(e)}"

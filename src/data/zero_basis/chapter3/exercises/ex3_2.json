@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter3",
+    "id": "ex3_2",
+    "title": "if-else判断偶数",
+    "difficulty": "easy",
+    "description": "从键盘输入一个整数，如果是2的倍数，打印'是偶数'，否则打印'是奇数'。",
+    "test_cases": [
+        {
+            "input": "4",
+            "expected_output": "是偶数"
+        },
+        {
+            "input": "7",
+            "expected_output": "是奇数"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int num;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int num;\n    scanf(\"%d\", &num);\n    if (num % 2 == 0) {\n        printf(\"是偶数\\n\");\n    } else {\n        printf(\"是奇数\\n\");\n    }\n    return 0;\n}"
+}

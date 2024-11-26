@@ -1,0 +1,39 @@
+#welcome-container {
+    max-width: 1200px;  /* 容器最大宽度为1200像素 */
+    margin: 0 auto;     /* 上下边距为0，左右自动居中 */
+    padding: 1rem;      /* 内边距为1rem */
+}
+
+#welcome-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.feature-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.tips {
+    margin-bottom: 1rem;
+    padding: 0rem 1rem;
+    background: #e8f4f8;
+    border-radius: 8px;
+    color: #81d8d0;
+    line-height: 1.2;
+}

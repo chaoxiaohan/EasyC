@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter5",
+    "id": "ex5_2",
+    "title": "一维数组最小值",
+    "difficulty": "easy",
+    "description": "定义一个大小为10的整数数组，从键盘输入10个整数，输出数组中的最小值。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4 5 6 7 8 9 10",
+            "expected_output": "1"
+        },
+        {
+            "input": "5 8 2 1 9 3 7 4 6 0",
+            "expected_output": "0"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int arr[10];\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int arr[10], min;\n    for(int i = 0; i < 10; i++) {\n        scanf(\"%d\", &arr[i]);\n    }\n    min = arr[0];\n    for(int i = 1; i < 10; i++) {\n        if(arr[i] < min) min = arr[i];\n    }\n    printf(\"%d\\n\", min);\n    return 0;\n}"
+}

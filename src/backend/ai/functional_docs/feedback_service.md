@@ -14,61 +14,62 @@
 
 ### 构造函数
 ```python
-def __init__(self, api_key: str=None):
+def __init__(self):
 ```
-- 参数:
-    - `api_key`: DeepSeek API密钥，可选
 - 功能:
-    - 初始化 `AIFeedbackEngine` 实例
+    - 初始化 `engine` 属性为 None
     - 记录服务初始化日志
 
 ### 主要方法
-**update_api_key**
+**update_credentials**
 ```python
-def update_api_key(self, api_key: str):
+def update_credentials(self, api_key: str) -> bool:
 ```
 - 参数:
     - `api_key`: DeepSeek API密钥
 - 功能:
     - 更新API密钥
-    - 更新 `AIFeedbackEngine` 实例中的API密钥
+    - 创建新的 `AIFeedbackEngine` 实例
+- 返回值: 
+    - `bool`: 更新是否成功
+- 特殊情况:
+    - 当 `api_key` 为空时，将 `engine` 设为 None 并返回 True
 
 **get_feedback**
 ```python
-async def get_feedback(self, code: str, compile_result: dict) -> str:
+async def get_feedback(self, code: str, compile_result: dict, input_data: str=None, exercise_description: str=None) -> str:
 ```
 - 参数:
     - `code`: 需要反馈的代码
     - `compile_result`: 编译结果的字典
+    - `input_data`: 输入数据（可选）
+    - `exercise_description`: 练习描述（可选）
 - 功能:
-    - 生成AI反馈
+    - 检查 engine 是否已初始化
+    - 整合所有信息生成 AI 反馈
     - 记录获取反馈的日志
-- 返回值: AI生成的反馈内容
-- 异常处理: 捕获并记录可能发生的错误，返回用户友好的错误信息
-
-### 工作流程
-1. 初始化时创建 `AIFeedbackEngine` 实例
-2. 通过 `update_api_key` 方法更新API密钥
-3. 使用 `get_feedback` 方法获取代码反馈
-4. 所有操作都有错误日志记录
-
-### 注意事项
-- 需要有效的DeepSeek API密钥
-- 异步方法 `get_feedback` 需要在异步上下文中调用
-- 所有API调用都有错误处理和日志记录
+- 返回值: 
+    - AI 生成的反馈内容
+    - 如果未配置 API Key，返回提示信息
+    - 如果发生错误，返回友好的错误信息
 
 ### 使用示例
 ```python
 # 初始化服务
-service = AIFeedbackService(api_key="your_api_key")
+service = AIFeedbackService()
 
-# 更新API密钥
-service.update_api_key("new_api_key")
+# 更新凭证
+success = service.update_credentials("your_api_key")
 
 # 获取反馈
 try:
-    feedback = await service.get_feedback("your_code_here", {"result": "success"})
+    feedback = await service.get_feedback(
+        code="your_code_here",
+        compile_result={"result": "success"},
+        input_data="test input",
+        exercise_description="练习描述"
+    )
     print(feedback)
 except Exception as e:
     print(f"Error: {e}")
-``` 
+```

@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter7",
+    "id": "ex7_2",
+    "title": "指针值输出",
+    "difficulty": "easy",
+    "description": "定义一个整型变量和一个指向它的指针变量，输出指针变量指向的值。",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "指针指向的值：10"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int num = 10;\n    int *p = &num;\n    printf(\"指针指向的值：%d\\n\", *p);\n    return 0;\n}"
+}

@@ -40,3 +40,7 @@ logger.add(
     retention="30 days",
     encoding="utf-8"
 )
+
+LOG = logger
+
+__all__ = ["LOG"]

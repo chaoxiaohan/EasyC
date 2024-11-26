@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter6",
+    "id": "ex6_4",
+    "title": "输入带空格的字符串",
+    "difficulty": "hard",
+    "description": "从键盘输入一个带有空格的字符串，输出这个字符串本身和字符串的长度。  \n(提示：需要使用 \"%[^\\n]\" 来读取字符串)",
+    "test_cases": [
+        {
+            "input": "Good morning!",
+            "expected_output": "13"
+        },
+        {
+            "input": "Welcome to C programming!",
+            "expected_output": "25"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    char str[100];\n    \n    scanf(\"%[^\\n]\", str);\n    \n    int length = 0;\n    while(str[length] != '\\0') {\n        length++;\n    }\n    \n    printf(\"%s\\n%d\\n\", str, length);\n    \n    return 0;\n}" 
+}

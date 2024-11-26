@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter8",
+    "id": "ex8_1",
+    "title": "数组指针基础",
+    "difficulty": "easy",
+    "description": "编写程序完成以下任务：\n- 定义一个整型数组 arr[5] = {1, 2, 3, 4, 5}\n- 定义一个指向数组的指针 p\n- 分别用数组下标和指针的方式输出数组所有元素",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "数组下标方式：1 2 3 4 5  \n指针方式：1 2 3 4 5"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    // 定义并初始化数组\n    int arr[5] = {1, 2, 3, 4, 5};\n    // 定义指向数组的指针\n    int *p = arr;\n\n    // 使用数组下标方式输出\n    printf(\"数组下标方式：\");\n    for (int i = 0; i < 5; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    printf(\"\\n\");\n\n    // 使用指针方式输出\n    printf(\"指针方式：\");\n    for (int i = 0; i < 5; i++) {\n        printf(\"%d \", *(p + i));  // 也可以写成 p[i]\n    }\n    printf(\"\\n\");\n\n    return 0;\n}"
+}

@@ -1,0 +1,97 @@
+
+/* 整体容器样式 */
+.exercise-container {
+    padding: 0rem;
+    margin: 0rem;
+    height: 100%;
+}
+
+
+
+/* 习题ID列（第一列）样式 */
+.exercise-list tbody td:first-child {
+    color: #3182ce;  /* 蓝色文字 */
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.exercise-list tbody td:first-child:hover {
+    color: #2c5282;  /* 鼠标悬停时的深蓝色 */
+    text-decoration: underline;
+}
+
+/* 习题描述区域样式 */
+.exercise-description {
+    background: #ffffff;
+    padding: 1.2rem;
+    /* border-radius: 8px; */
+    /* margin-bottom: 1rem; */
+}
+
+/* 代码卡片样式 */
+.code-card {
+    background: white;
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+/* 代码编辑区域样式 */
+.code-editor {
+    /* margin: 1rem 0; */
+    border-radius: px;
+}
+
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    /* margin: 1rem 0; */
+}
+/* 添加自定义按钮样式 */
+.button-group button {
+    min-width: 0 !important;              /* 移除最小宽度限制 */
+    width: max-content !important;         /* 宽度仅适应内容 */
+    font-size: 0.9rem !important;         /* 字体大小 */
+    line-height: 1 !important;            /* 紧凑的行高 */
+    height: auto !important;              /* 自动高度 */
+    flex: 0 0 auto !important;            /* 禁止按钮伸缩 */
+    white-space: nowrap !important;       /* 防止文字换行 */
+}
+
+/* 运行结果样式 */
+.output-box {
+    background: #f8fafc;
+    /* border-radius: 8px; */
+}
+
+/* AI 反馈区域样式 */
+.ai-feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+    border-left: 4px solid #a39fa1;
+}
+
+.scrollable-column {
+    height: 83vh;  /* 使用 calc 来计算高度，减去头部可能的空间 */
+    /* max-height: 1000px;  添加最大高度限制 */
+    /* min-height: 500px;   添加最小高度限制 */
+    overflow-y: auto;
+    /* padding: clamp(5px, 1vw, 15px);  /* 使用 clamp 让内边距随屏幕大小变化 */
+    /* display: block; */
+    /* overflow-x: hidden; */
+    display: block;
+}
+
+.split-columns {
+    display: flex;
+    gap: clamp(10px, 2vw, 20px);  /* 使用 clamp 让间距随屏幕大小变化 */
+    margin: clamp(10px, 2vh, 20px) 0 !important;
+    max-width: 100%;
+}
+

@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter5",
+    "id": "ex5_9",
+    "title": "二维数组行平均值",
+    "difficulty": "medium",
+    "description": "定义一个3行4列的整数数组，从键盘输入数组元素，输出每一行的平均值（保留2位小数）。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4\n5 6 7 8\n9 10 11 12",
+            "expected_output": "2.50\n6.50\n10.50"
+        },
+        {
+            "input": "1 1 1 1\n2 2 2 2\n3 3 3 3",
+            "expected_output": "1.00\n2.00\n3.00"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int arr[3][4];\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int arr[3][4];\n    for(int i = 0; i < 3; i++) {\n        for(int j = 0; j < 4; j++) {\n            scanf(\"%d\", &arr[i][j]);\n        }\n    }\n    for(int i = 0; i < 3; i++) {\n        double sum = 0;\n        for(int j = 0; j < 4; j++) {\n            sum += arr[i][j];\n        }\n        printf(\"%.2f\\n\", sum / 4);\n    }\n    return 0;\n}"
+}

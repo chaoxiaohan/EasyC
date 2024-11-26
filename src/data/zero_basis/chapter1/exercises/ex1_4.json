@@ -1,0 +1,15 @@
+{
+    "chapter_id": "chapter1",
+    "id": "ex1_4",
+    "title": "关系运算",
+    "difficulty": "easy",
+    "description": "使用关系运算符计算下列表达式（结果为1表示真，0表示假）：\n- 5 > 3\n- 10 == 10.0\n- 7 != 7",
+    "test_cases": [
+        {
+            "input": "",
+            "expected_output": "1\n1\n0"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    // 请在此处编写关系运算代码\n\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    printf(\"%d\\n\", 5 > 3);\n    printf(\"%d\\n\", 10 == 10.0);\n    printf(\"%d\\n\", 7 != 7);\n    return 0;\n}"
+}

@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_5",
+    "title": "数组求和函数",
+    "difficulty": "medium",
+    "description": "编写一个函数，接收一个整型数组（大小为5），返回数组所有元素的和。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4 5",
+            "expected_output": "15"
+        },
+        {
+            "input": "-1 2 -3 4 -5",
+            "expected_output": "-3"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint arraySum(int arr[], int size) {\n    int sum = 0;\n    for(int i = 0; i < size; i++) {\n        sum += arr[i];\n    }\n    return sum;\n}\n\nint main() {\n    int arr[5];\n    for(int i = 0; i < 5; i++) {\n        scanf(\"%d\", &arr[i]);\n    }\n    printf(\"%d\\n\", arraySum(arr, 5));\n    return 0;\n}"
+}

@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter5",
+    "id": "ex5_8",
+    "title": "二维数组列最小值",
+    "difficulty": "medium",
+    "description": "定义一个3行4列的整数数组，从键盘输入数组元素，输出每一列的最小值。",
+    "test_cases": [
+        {
+            "input": "1 2 3 4 5 6 7 8 9 10 11 12",
+            "expected_output": "1 2 3 4"
+        },
+        {
+            "input": "2 3 8 9 1 6 5 7 0 6 8 3",
+            "expected_output": "0 3 5 3"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int arr[3][4];\n    for(int i = 0; i < 3; i++) {\n        for(int j = 0; j < 4; j++) {\n            scanf(\"%d\", &arr[i][j]);\n        }\n    }\n    for(int j = 0; j < 4; j++) {\n        int min = arr[0][j];\n        for(int i = 1; i < 3; i++) {\n            if(arr[i][j] < min) min = arr[i][j];\n        }\n        printf(\"%d\\n\", min);\n    }\n    return 0;\n}"
+}

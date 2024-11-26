@@ -1,0 +1,19 @@
+{
+  "chapter_id": "chapter2",
+  "id": "ex2_1",
+  "title": "成绩计算",
+  "difficulty": "medium",
+  "description": "小明的姓名代号为 M, 本次期末考试语数英成绩分别为 88, 99, 100。实现以下要求：\n- 从键盘依次输入小明的三门课成绩，用逗号 ',' 分隔；\n- 输出小明的总分，计算三门课的总分和平均分，分别用变量 sum 和 avg 存储；\n- 输出三门课的总分和平均分（平均分是 float 型，并保留 2 位小数）；",
+  "test_cases": [
+      {
+          "input": "88,99,100",
+          "expected_output": "总分：287\n平均分：95.67"
+      },
+      {
+          "input": "90,85,95",
+          "expected_output": "总分：270\n平均分：90.00"
+      }
+  ],
+  "solution_template": "",
+  "solution": "#include <stdio.h>\n\nint main() {\n    int chinese, math, english;\n    int sum;\n    float avg;\n    \n    /* 输入三门课成绩 */\n    scanf(\"%d,%d,%d\", &chinese, &math, &english);\n    \n    /* 计算总分和平均分 */\n    sum = chinese + math + english;\n    avg = sum / 3.0;\n    \n    /* 输出结果 */\n    printf(\"总分：%d\\n\", sum);\n    printf(\"平均分：%.2f\\n\", avg);\n    \n    return 0;\n}"
+}

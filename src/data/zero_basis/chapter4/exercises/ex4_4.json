@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter4",
+    "id": "ex4_4",
+    "title": "for循环输出数列",
+    "difficulty": "easy",
+    "description": "请从键盘输入一个整数n，用for循环输出1到n的所有整数。",
+    "test_cases": [
+        {
+            "input": "5",
+            "expected_output": "1 2 3 4 5"
+        },
+        {
+            "input": "3",
+            "expected_output": "1 2 3"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int n;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int n;\n    scanf(\"%d\", &n);\n    for (int i = 1; i <= n; i++) {\n        printf(\"%d \", i);\n    }\n    return 0;\n}"
+}

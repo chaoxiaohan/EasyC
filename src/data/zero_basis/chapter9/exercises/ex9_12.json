@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_12",
+    "title": "最大公约数函数",
+    "difficulty": "medium",
+    "description": "编写一个函数计算两个正整数的最大公约数。",
+    "test_cases": [
+        {
+            "input": "12 18",
+            "expected_output": "6"
+        },
+        {
+            "input": "7 13",
+            "expected_output": "1"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint gcd(int a, int b) {\n    while(b != 0) {\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}\n\nint main() {\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    printf(\"%d\\n\", gcd(a, b));\n    return 0;\n}"
+}

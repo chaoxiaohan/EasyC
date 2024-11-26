@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_1",
+    "title": "整数求和函数",
+    "difficulty": "easy",
+    "description": "编写一个函数计算两个整数的和，并在main函数中调用它。",
+    "test_cases": [
+        {
+            "input": "3 5",
+            "expected_output": "8"
+        },
+        {
+            "input": "-1 1",
+            "expected_output": "0"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint sum(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    int x, y;\n    scanf(\"%d %d\", &x, &y);\n    printf(\"%d\\n\", sum(x, y));\n    return 0;\n}"
+}

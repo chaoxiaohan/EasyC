@@ -1,0 +1,31 @@
+{
+    "id": "chapter8",
+    "title": "八、数组和指针",
+    "description": "本章节将介绍C语言中数组和指针的结合使用，包括指针数组操作、指针运算等内容。",
+    "exercises": [
+        {
+            "id": "ex8_1",
+            "title": "数组指针基础",
+            "difficulty": "easy",
+            "path": "exercises/ex8_1.json"
+        },
+        {
+            "id": "ex8_2",
+            "title": "指针数组运算",
+            "difficulty": "medium",
+            "path": "exercises/ex8_2.json"
+        },
+        {
+            "id": "ex8_3",
+            "title": "指针变量交换",
+            "difficulty": "medium",
+            "path": "exercises/ex8_3.json"
+        },
+        {
+            "id": "ex8_4",
+            "title": "字符串指针操作",
+            "difficulty": "hard",
+            "path": "exercises/ex8_4.json"
+        }
+    ]
+}

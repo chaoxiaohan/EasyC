@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_4",
+    "title": "绝对值函数",
+    "difficulty": "easy",
+    "description": "编写一个函数计算一个数的绝对值。",
+    "test_cases": [
+        {
+            "input": "-5",
+            "expected_output": "5"
+        },
+        {
+            "input": "3",
+            "expected_output": "3"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nint absolute(int n) {\n    return n >= 0 ? n : -n;\n}\n\nint main() {\n    int num;\n    scanf(\"%d\", &num);\n    printf(\"%d\\n\", absolute(num));\n    return 0;\n}"
+}

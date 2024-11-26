@@ -2,7 +2,7 @@
 
 import os
 import json
-from utils.logger import logger
+from utils.logger import LOG
 from utils.path_utils import ProjectPaths
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -27,13 +27,15 @@ class AIFeedbackEngine:
         self.api_key = api_key
         self.model = self.system_message | ChatOpenAI(model="deepseek-chat", openai_api_key=self.api_key, openai_api_base='https://api.deepseek.com',)
     
-    def chat(self, message):
-        logger.debug(f"Chatting with message: {message}")
+    async def chat(self, message):
+        LOG.debug(f"Chatting with message: {message}")
         try:
-            response = self.model.invoke({"messages": message})
-            return response.content
+            partial_message = ""
+            async for chunk in self.model.astream({"messages": message}):
+                partial_message += chunk.content
+                yield partial_message
         except Exception as e:
-            logger.error(f"Error in chat: {e}")
+            LOG.error(f"Error in chat: {e}")
             raise
 
     

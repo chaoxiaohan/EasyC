@@ -1,0 +1,27 @@
+{
+    "chapter_id": "chapter3",
+    "id": "ex3_3",
+    "title": "嵌套if成绩判断",
+    "difficulty": "medium",
+    "description": "从键盘输入一个分数score，打印该分数对应的级别class。  \n90-100：class = A  \n80-89：class = B  \n60-79：class = C  \n<60：class = D",
+    "test_cases": [
+        {
+            "input": "95",
+            "expected_output": "A"
+        },
+        {
+            "input": "85",
+            "expected_output": "B"
+        },
+        {
+            "input": "75",
+            "expected_output": "C"
+        },
+        {
+            "input": "55",
+            "expected_output": "D"
+        }
+    ],
+    "solution_template": "#include <stdio.h>\n\nint main() {\n    int score;\n    // 请在此处编写代码\n    return 0;\n}",
+    "solution": "#include <stdio.h>\n\nint main() {\n    int score;\n    scanf(\"%d\", &score);\n    if (score >= 90) {\n        printf(\"A\\n\");\n    } else if (score >= 80) {\n        printf(\"B\\n\");\n    } else if (score >= 60) {\n        printf(\"C\\n\");\n    } else {\n        printf(\"D\\n\");\n    }\n    return 0;\n}"
+}

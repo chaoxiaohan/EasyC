@@ -1,0 +1,19 @@
+{
+    "chapter_id": "chapter9",
+    "id": "ex9_8",
+    "title": "指针交换函数",
+    "difficulty": "medium",
+    "description": "编写一个函数，交换两个整数的值（使用指针参数）。",
+    "test_cases": [
+        {
+            "input": "3 5",
+            "expected_output": "交换后：5 3"
+        },
+        {
+            "input": "-1 1",
+            "expected_output": "交换后：1 -1"
+        }
+    ],
+    "solution_template": "",
+    "solution": "#include <stdio.h>\n\nvoid swap(int *a, int *b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}\n\nint main() {\n    int x, y;\n    scanf(\"%d %d\", &x, &y);\n    swap(&x, &y);\n    printf(\"交换后：%d %d\\n\", x, y);\n    return 0;\n}"
+}
