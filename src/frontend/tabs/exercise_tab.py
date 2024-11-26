@@ -29,24 +29,21 @@ class ExerciseTab:
         LOG.info(f"Selecting exercise: {exercise_id}")
         exercise = self.exercise_service.get_exercise_by_id(exercise_id)
         self.current_exercise = exercise
-        test_description = f"### {exercise.id}：{exercise.title}\n\n{exercise.description}\n\n"
+        test_description = f"### 题目：{exercise.id}. {exercise.title}\n\n{exercise.description}\n\n"
         for i, test_case in enumerate(exercise.test_cases, 1):
             test_description += f"\n##### case {i}:\n&nbsp;&nbsp;&nbsp;&nbsp;**输入**: {test_case.input}  \n&nbsp;&nbsp;&nbsp;&nbsp;**输出**: {test_case.expected_output}"
-        return [test_description, gr.update(value="")]
-    
-    def _handle_get_solution(self):
-        """处理查看答案按钮"""
-        solution = self.current_exercise.solution
-
-        return f"```c\n{solution}\n```"
+        
+        solution = f"```c\n{exercise.solution}\n```"
+        
+        return [test_description, solution]
 
     def _get_ai_feedback_start(self):
         return "*AI 分析中...*"
     
     async def _get_ai_feedback(self, exercise_description: str, input_data: str, code: str, output: str):
         """处理AI分析按钮"""
-        analysis = await self.feedback_service.get_feedback(code=code, compile_result=output, input_data=input_data, exercise_description=exercise_description)
-        return analysis
+        async for analysis in self.feedback_service.get_feedback(code=code, compile_result=output, input_data=input_data, exercise_description=exercise_description):
+            yield analysis
     
     async def _run_code(self, code: str, input_data: str):
         """处理代码运行"""
@@ -69,15 +66,11 @@ class ExerciseTab:
     def create(self):
         """创建习题练习标签页"""
         with gr.Tab("习题练习✍️"):
-            with gr.Column(elem_classes=["exercise-container"]):
-                # 提示信息
-                gr.Markdown(
-                    "> 💡 提示：配置 API Key 后可启用 AI 分析功能，获得更专业的代码建议，让你的学习事半功倍！")
-                
-                # 章节和习题列表
+            # 章节和习题列表
+            with gr.Accordion(label="章节和习题列表", open=False):
                 with gr.Column(elem_classes=["exercise-card"]):
                     chapter_radio = gr.Radio(
-                        choices=[c["id"] for c in self.exercise_service.get_chapters()],
+                        choices=[(c['title'], c['id']) for c in self.exercise_service.get_chapters()],
                         interactive=True,
                         value="chapter1",
                         label="选择章节",
@@ -91,57 +84,68 @@ class ExerciseTab:
                         elem_classes=["exercise-list"],
                         max_height=300,
                     )
-                
-                # 习题详情和代码编辑器
-                with gr.Row():
-                    with gr.Column(scale=2):
+            # 习题详情和代码编辑器
+            with gr.Row():
+                # 左侧列, 习题描述和答案
+                with gr.Column(scale=3):
+                    with gr.TabItem("题目描述"):
                         exercise_description = gr.Markdown(
                             "请选择一个习题",
+                            max_height=500,
                             show_copy_button=True,
                             elem_classes=["exercise-description"]
                         )
-                        
-                        solution_area = gr.Markdown(elem_classes=["solution-area"])
-                        
+                    with gr.TabItem("本题参考答案"):
+                        solution_area = gr.Markdown(
+                            max_height=500,
+                            # show_copy_button=True,
+                            elem_classes=["solution-area"]
+                        )
+                    with gr.TabItem("AI 分析", elem_classes=["scrollable-column"]):
                         with gr.Row(elem_classes=["button-group"]):
-                            get_solution_button = gr.Button(
-                                "💡 查看答案",
-                                variant="secondary",
-                            )
                             get_ai_feedback_button = gr.Button(
-                                "🤖 AI 分析",
+                                "🤖 获取AI 分析",
                                 variant="primary",
+                                elem_classes=["button-group"]
                             )
-                        
-                        ai_feedback = gr.Markdown(show_copy_button=True, elem_classes=["ai-feedback"])
-                        
-                    with gr.Column(scale=3, elem_classes=["code-card"]):
-                        program_input = gr.Textbox(
-                            label="程序输入（在这里一次性输出程序运行时需要的所有输入值）",
-                            placeholder="多个输入值请用空格分隔，例如: 1 2 3",
-                            lines=2,
+                        ai_feedback = gr.Markdown(
+                            show_copy_button=True,
+                            elem_classes=["ai-feedback"],
+                            max_height=1000,
                         )
-                        
-                        code_editor = gr.Code(
-                            language="c",
-                            label="编写代码",
-                            lines=10,
-                            elem_classes=["code-editor"]
-                        )
-                        
-                        with gr.Row(elem_classes=["button-group"]):
-                            run_btn = gr.Button("▶ 运行", variant="primary")
-                            clean_btn = gr.Button("🗑 清空")
-                        
-                        output_box = gr.Textbox(
-                            label="运行结果",
-                            lines=5,
-                            placeholder="运行结果将显示在这里",
-                            interactive=False,
-                            elem_classes=["output-box"]
-                        )
-                        
+                
+                # 右侧列, 代码编辑器
+                with gr.Column(scale=5, elem_classes=["code-card"]):
                     
+                    code_editor = gr.Code(
+                        language="c",
+                        label="代码",
+                        lines=16,
+                        max_lines=25,
+                        elem_classes=["code-editor"]
+                    )
+
+                    program_input = gr.Textbox(
+                        label="程序输入（在这里一次性输出程序运行时需要的所有输入值）",
+                        placeholder="多个输入值请用空格分隔，例如: 1 2 3",
+                        lines=2,
+                        max_lines=10,
+                    )
+                    
+                    with gr.Row(elem_classes=["button-group"]):
+                        run_btn = gr.Button("▶ 运行", variant="primary")
+                        clean_btn = gr.Button("🗑 清空", variant="secondary")
+                    
+                    output_box = gr.Textbox(
+                        label="运行结果",
+                        lines=3,
+                        max_lines=10,
+                        placeholder="运行结果将显示在这里",
+                        interactive=False,
+                        elem_classes=["output-box"]
+                    )
+                    
+            
             # 事件绑定
             chapter_radio.change(
                 fn=self._handle_chapter_select,
@@ -158,11 +162,6 @@ class ExerciseTab:
                 fn=self._run_code,
                 inputs=[code_editor, program_input],
                 outputs=[output_box],
-            )
-
-            get_solution_button.click(
-                fn=self._handle_get_solution,
-                outputs=[solution_area],
             )
 
             get_ai_feedback_button.click(

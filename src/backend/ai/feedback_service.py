@@ -29,7 +29,8 @@ class AIFeedbackService:
     async def get_feedback(self, code: str, compile_result: dict, input_data: str=None, exercise_description: str=None) -> str:
         """根据代码和编译结果提供 AI 反馈"""
         if not self.engine:
-            return "请先在设置中配置 API Key 以启用 AI 反馈功能"
+            yield "请先在设置中配置 API Key 以启用 AI 反馈功能"
+            return
         
         LOG.debug(f"Getting feedback for code: {code} and compile result: {compile_result}")
         message = {
@@ -39,10 +40,10 @@ class AIFeedbackService:
             "compile_result": compile_result,
         }
         try:
-            feedback = self.engine.chat(json.dumps(message))
+            async for feedback in self.engine.chat(json.dumps(message)):
+                yield feedback
             LOG.info("AI feedback generated successfully")
-            return feedback
         except Exception as e:
             LOG.error(f"Error generating AI feedback: {e}")
-            return "AI 分析服务暂时不可用，请稍后再试。"
+            yield "AI 分析服务暂时不可用，请稍后再试。"
             

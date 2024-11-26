@@ -34,7 +34,9 @@ class ExerciseRepository:
                     chapter_metadata = json.load(f)
 
                 # 初始化当前章节的习题集合
-                chapters[chapter_metadata['id']] = set()
+                chapters[chapter_metadata['id']] = {}
+                chapters[chapter_metadata['id']]['title'] = chapter_metadata['title']
+                chapters[chapter_metadata['id']]['exercises'] = set()
                     
                 # 加载章节中的每个练习题
                 for ex_meta in chapter_metadata['exercises']:
@@ -54,10 +56,10 @@ class ExerciseRepository:
                             test_cases=[TestCase(**tc) for tc in ex_data['test_cases']]
                         )
                         self.exercises[ex_data['id']] = exercise
-                        chapters[chapter_metadata['id']].add(ex_data['id'])
+                        chapters[chapter_metadata['id']]['exercises'].add(ex_data['id'])
             
             # 构建章节缓存
-            self._chapter_cache = [{"id": k, "exercise_count": len(v)} for k, v in chapters.items()]          
+            self._chapter_cache = [{"id": k, "title": v['title'], "exercise_count": len(v['exercises'])} for k, v in chapters.items()]          
             LOG.info(f"Successfully loaded {len(self.exercises)} exercises in {len(self._chapter_cache)} chapters")
         except FileNotFoundError as e:
             LOG.error(f"File not found: {str(e)}")
